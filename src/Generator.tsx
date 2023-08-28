@@ -1,0 +1,43 @@
+import { lookupTable, config } from "./random-tables";
+import {useState, Fragment} from "react";
+
+export function RandomItem({ pattern } : { pattern: string }) {
+  const [randomItem, setRandomItem] = useState(lookupTable(pattern));
+
+  function regenerate() {
+    let newItem = randomItem;
+    while (newItem === randomItem) {
+      newItem = lookupTable(pattern);
+    }
+    setRandomItem(newItem);
+  }
+
+  return (
+    <button onClick={regenerate} className="randomItemButton">{randomItem.toLowerCase()}</button>
+  );
+}
+
+function GeneratorLine({ line }: { line: string}) {
+  const re = /(<[^>]*>| )/;
+  const segments = line.split(re).map((segment) => {
+    if (segment === " ") {
+      return <>&nbsp;</>
+    } else if (re.test(segment)) {
+      const pattern = segment.slice(1, -1);
+      return <RandomItem pattern={pattern} />
+    }
+    return segment;
+  })
+  return <p className="generatorLine">
+    {segments}
+  </p>
+}
+
+export function Generator({ generator }: { generator: string }) {
+  // return <RandomItem pattern={generator} />;
+  return (
+    <Fragment>
+      { config.generators[generator].map((line) => <GeneratorLine line={line} key={line} />) }
+    </Fragment>
+  )
+}

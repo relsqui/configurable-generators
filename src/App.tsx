@@ -1,23 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { Generator } from './Generator';
+import { config } from './random-tables';
+
 
 function App() {
+  const generators = Object.keys(config.generators);
+  const [generator, setGenerator] = useState(generators[0]);
+
+  function updateGenerator(generator: string) {
+    setGenerator(generator);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div>{
+        generators.map((g) =>
+          <button className="generatorButton" id={g} key={g} onClick={() => updateGenerator(g)}>{g}</button>
+        )
+      }</div>
+      <header className="App-content">
+        <Generator generator={generator} />
       </header>
     </div>
   );

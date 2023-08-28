@@ -1,0 +1,28 @@
+{
+  "title": "Derelicts",
+  "tables": {
+    "Major role": [
+      "Data hub",
+      "Temple",
+      "Garden",
+      "Mining",
+      "Exploration",
+      "Rescue",
+      "Colony"
+    ],
+
+    "Sights & readings": [
+      "Overgrown vegetation",
+      "Radioactive emissions",
+      "Pulsating energy",
+      "Ghostly apparitions",
+      "Eerie silence",
+      "Raging fires",
+      "Echoes of old voices",
+      "Unnatural darkness",
+      "Abnormal gravity readings",
+      "Mysterious energy fields",
+      "Emanations of dark energy"
+    ]
+  }
+}

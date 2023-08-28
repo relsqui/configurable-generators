@@ -1,0 +1,13 @@
+{
+  "title": "Derelict Delvers",
+  "generators": {
+    "Derelict": [
+      "A <Derelicts|Major role> derelict with <Derelicts|Sights & readings> and <Derelicts|Sights & readings>.",
+      "A place to <Mood|Intent> <Mood|Subject>. It's <Mood|Quality>."
+    ],
+    "Room": [
+      "This <Mood|Quality> room smells <Mood|Smell>.",
+      "You hear <Mood|Sound>."
+    ]
+  }
+}
