@@ -18,11 +18,9 @@ export function RandomItem({ pattern } : { pattern: string }) {
 }
 
 function GeneratorLine({ line }: { line: string}) {
-  const re = /(<[^>]*>| )/;
+  const re = /(<[^>]*>)/;
   const segments = line.split(re).map((segment) => {
-    if (segment === " ") {
-      return <>&nbsp;</>
-    } else if (re.test(segment)) {
+    if (re.test(segment)) {
       const pattern = segment.slice(1, -1);
       return <RandomItem pattern={pattern} />
     }
