@@ -8,11 +8,18 @@ body {
   color: var(--light-gray);
 }
 
-.App {
-  text-align: center;
+.Generators {
+  display: block;
+  position: absolute;
+  top: 0px;
 }
 
-.App-content {
+.selectedGenerator {
+  cursor: default;
+  border-bottom: medium var(--light-gray) dotted;
+}
+
+.App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,6 +35,7 @@ body {
 
 button {
   font-size: inherit;
+  font-family: inherit;
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -35,7 +43,11 @@ button {
 }
 
 .generatorButton {
-  margin: 5px;
+  background-color: var(--dark-gray);
+  color: var(--light-gray);
+  margin: 10px;
+  border-radius: 0;
+  font-size: calc(10px + 2vmin);
 }
 
 .randomItemButton {

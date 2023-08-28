@@ -34,10 +34,9 @@ function GeneratorLine({ line }: { line: string}) {
 }
 
 export function Generator({ generator }: { generator: string }) {
-  // return <RandomItem pattern={generator} />;
   return (
-    <Fragment>
+    <p>
       { config.generators[generator].map((line) => <GeneratorLine line={line} key={line} />) }
-    </Fragment>
+    </p>
   )
 }

@@ -1,0 +1,45 @@
+{
+  "title": "Powers",
+  "tables": {
+    "Names #01": [
+      "Acceleration Aura",
+      "Attraction Beam",
+      "Celestial Flux",
+      "Chrono Blink",
+      "Cyberhook",
+      "Dark Rift",
+      "Daze Wave"
+    ],
+    "Names #02": [
+      "Biofortifier Shot",
+      "Blackout Slash",
+      "Blaze Kick",
+      "Chaos Cyclone",
+      "Cosmic Combo",
+      "Crushing Strike",
+      "Dark Energy Blast"
+    ],
+    "Aspect": [
+      "Kinetic",
+      "Magnetic",
+      "Thermal",
+      "Stealthy",
+      "Pulsating",
+      "Glowing",
+      "Electrified",
+      "Flexible",
+      "Radiant"
+    ],
+    "Effect": [
+      "Shield",
+      "Enhance",
+      "Disrupt",
+      "Energize",
+      "Harden",
+      "Blind",
+      "Intensify",
+      "Neutralize",
+      "Obscure"
+    ]
+  }
+}

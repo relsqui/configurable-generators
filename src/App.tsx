@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Generator } from './Generator';
 import { config } from './random-tables';
 
 
+function GeneratorButton({ generator, selected, updateGenerator }: {generator: string, selected: boolean, updateGenerator: (generator: string) => void}) {
+  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`
+  return (
+    <button className={className} key={generator} onClick={() => updateGenerator(generator)}>{generator}</button>
+  )
+}
+
 function App() {
+  const [generator, setGenerator] = useState("");
+  useEffect(() => {
+    document.title = `${config.title} Generators`
+  })
   const generators = Object.keys(config.generators);
-  const [generator, setGenerator] = useState(generators[0]);
 
   function updateGenerator(generator: string) {
     setGenerator(generator);
   }
 
+  if (!generator) {
+    updateGenerator(generators[0]);
+  }
+
   return (
     <div className="App">
-      <div>{
+      <header className="Generators">{
         generators.map((g) =>
-          <button className="generatorButton" id={g} key={g} onClick={() => updateGenerator(g)}>{g}</button>
+          <GeneratorButton generator={g} selected={g === generator} updateGenerator={updateGenerator} />
         )
-      }</div>
-      <header className="App-content">
-        <Generator generator={generator} />
-      </header>
+      }</header>
+      <Generator generator={generator} />
     </div>
   );
 }

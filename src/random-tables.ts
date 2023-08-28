@@ -13,7 +13,7 @@ type TableConfig = {
 
 function loadCategories() {
   // https://webpack.js.org/guides/dependency-management/#require-context
-  const requireCategory = require.context('./static/tables/', true, /\.json$/);
+  const requireCategory = require.context('./static/table-categories/', true, /\.json$/);
   const categories: {[key: string]: StringListMap} = {};
   for (const file of requireCategory.keys()) {
     const category = requireCategory(file);
@@ -35,7 +35,7 @@ function loadTables(): TableConfig {
 
 export function lookupTable(pattern: string) {
   const table = config.tables[pattern];
-  return table ? table[Math.floor(Math.random()*table.length)] : `<${pattern}>`;
+  return table ? table[Math.floor(Math.random()*table.length)] : JSON.stringify(Object.keys(config.tables)) // `<${pattern}>`;
 }
 
 export const config = loadTables();
