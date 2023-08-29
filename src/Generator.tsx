@@ -41,7 +41,7 @@ function RandomItem({ choices, fallback }: { choices: string[], fallback: string
   }
 
   return (
-    <button onClick={choices ? regenerate : () => null} className="randomItemButton">{randomItem.toLowerCase()}</button>
+    <button onClick={choices ? regenerate : () => null} className="randomItem">{randomItem.toLowerCase()}</button>
   );
 }
 

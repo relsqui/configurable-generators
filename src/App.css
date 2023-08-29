@@ -91,6 +91,10 @@ footer {
   background: var(--medium-red);
 }
 
+.fileInput {
+  display: none;
+}
+
 .generatorLine {
   display: flex;
   align-items: center;
@@ -110,7 +114,7 @@ footer {
   border-radius: 0;
 }
 
-.randomItemButton {
+randomItem {
   background-color: var(--light-gray);
   color: var(--dark-gray);
   cursor: pointer;

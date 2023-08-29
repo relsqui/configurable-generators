@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export type StringListMap = {
   [key: string]: string[]
@@ -15,8 +15,16 @@ export type TableConfig = {
   isDefault?: boolean
 }
 
+export function UploadForm({ importConfig } : { importConfig: (file: File | null) => void}) {
+  const fileInput = useRef<HTMLInputElement>(null);
+  return <>
+    Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
+    <input ref={fileInput} className="fileInput" type="file" accept="application/json" onChange={(event) => importConfig((event.target.files || [])[0])} />
+  </>;
+}
+
 export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback: (config: TableConfig) => void }) {
-  const defaultText = 'Drag config file here.';
+  const defaultText = '';
   const defaultClass = 'ConfigDropZone';
   const [className, setClassName] = useState(defaultClass);
   const [text, setText] = useState(defaultText);
@@ -29,6 +37,19 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
   function resetDropZone() {
     setClassName(defaultClass);
     setText(defaultText);
+  }
+
+  function importConfig(file: File | null) {
+    if (file?.type !== 'application/json') return dropError();
+    resetDropZone();
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      if (event.target?.result) {
+        configLoadedCallback(JSON.parse(event.target.result.toString()) as TableConfig);
+      }
+    }
+    reader.readAsText(file);
   }
 
   function onDragOver(event: React.DragEvent<HTMLDivElement>) {
@@ -48,17 +69,10 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
     const item = event.dataTransfer.items[0];
     if (item.kind !== 'file') return dropError();
     const file = item.getAsFile();
-    if (file?.type !== 'application/json') return dropError();
-    resetDropZone();
-
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      if (event.target?.result) {
-        configLoadedCallback(JSON.parse(event.target.result.toString()) as TableConfig);
-      }
-    }
-    reader.readAsText(file);
+    importConfig(file);
   }
 
-  return <div className={className} onDrop={onDrop} onDragOver={onDragOver} onDragLeave={onDragLeave}>{text}</div>;
+  return <div className={className} onDrop={onDrop} onDragOver={onDragOver} onDragLeave={onDragLeave}>
+    {text ? text : <UploadForm importConfig={importConfig} />}
+    </div>;
 }
