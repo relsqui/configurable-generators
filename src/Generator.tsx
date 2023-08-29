@@ -50,7 +50,7 @@ function GeneratorLine({ line, tables }: { line: string, tables: StringListMap }
   const segments = line.split(re).map((segment, index) => {
     if (re.test(segment)) {
       const pattern = segment.slice(1, -1);
-      return <RandomItem key={index} choices={tables[pattern]} fallback={segment} />
+      return <RandomItem key={index} choices={tables[pattern] || []} fallback={segment} />
     }
     return segment;
   })
