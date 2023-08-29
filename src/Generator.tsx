@@ -1,7 +1,7 @@
-import { lookupTable, config } from "./random-tables";
-import {useState, Fragment} from "react";
+import { useState } from "react";
+import { lookupTable, tableConfig } from './tableConfig';
 
-export function RandomItem({ pattern } : { pattern: string }) {
+export function RandomItem({ pattern }: { pattern: string }) {
   const [randomItem, setRandomItem] = useState(lookupTable(pattern));
 
   function regenerate() {
@@ -17,7 +17,7 @@ export function RandomItem({ pattern } : { pattern: string }) {
   );
 }
 
-function GeneratorLine({ line }: { line: string}) {
+function GeneratorLine({ line }: { line: string }) {
   const re = /(<[^>]*>)/;
   const segments = line.split(re).map((segment) => {
     if (re.test(segment)) {
@@ -34,7 +34,7 @@ function GeneratorLine({ line }: { line: string}) {
 export function Generator({ generator }: { generator: string }) {
   return (
     <p>
-      { config.generators[generator].map((line) => <GeneratorLine line={line} key={line} />) }
+      {tableConfig.generators[generator].map((line) => <GeneratorLine line={line} key={line} />)}
     </p>
   )
 }

@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Generator } from './Generator';
-import { config } from './random-tables';
+import { tableConfig } from './tableConfig';
 
 
-function GeneratorButton({ generator, selected, updateGenerator }: {generator: string, selected: boolean, updateGenerator: (generator: string) => void}) {
+function GeneratorButton({ generator, selected, selectGenerator }: {
+  generator: string,
+  selected: boolean,
+  selectGenerator: () => void
+}) {
   const className = `generatorButton${selected ? ' selectedGenerator' : ''}`
   return (
-    <button className={className} key={generator} onClick={() => updateGenerator(generator)}>{generator}</button>
+    <button className={className} key={generator} onClick={selectGenerator}>{generator}</button>
   )
 }
 
+function GeneratorHeader({ generators, selectedGenerator, setGenerator }: {
+  generators: string[],
+  selectedGenerator: string,
+  setGenerator: React.Dispatch<React.SetStateAction<string>>
+}) {
+  return <header className="Generators">{
+    generators.map((g) =>
+      <GeneratorButton generator={g} selected={g === selectedGenerator} selectGenerator={() => setGenerator(g)} />
+    )
+  }</header>
+}
+
 function App() {
-  const [generator, setGenerator] = useState("");
+  const generators = Object.keys(tableConfig.generators);
+  const [generator, setGenerator] = useState(generators[0]);
   useEffect(() => {
-    document.title = `${config.title} Generators`
+    document.title = `${tableConfig.title} Generators`
   })
-  const generators = Object.keys(config.generators);
-
-  function updateGenerator(generator: string) {
-    setGenerator(generator);
-  }
-
-  if (!generator) {
-    updateGenerator(generators[0]);
-  }
 
   return (
     <div className="App">
-      <header className="Generators">{
-        generators.map((g) =>
-          <GeneratorButton generator={g} selected={g === generator} updateGenerator={updateGenerator} />
-        )
-      }</header>
+      <GeneratorHeader generators={generators} selectedGenerator={generator} setGenerator={setGenerator} />
       <Generator generator={generator} />
     </div>
   );
