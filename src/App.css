@@ -55,14 +55,15 @@ footer {
 }
 
 .ConfigDropZone {
-  display: block;
+  display: flex;
+  height: 70vh;
+  width: 80vw;
   margin: 20px;
   padding: 5vmin;
-  min-height: 95vmin !important;
-  min-width: 95hmin !important;
-  border: 10px var(--light) dashed;
-  text-align: center;
-  overflow: auto;
+  border: calc(5px + 1vmin) var(--light) dashed;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1em + 1.5vmin);
 }
 
 .generatorLine {

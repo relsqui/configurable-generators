@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { lookupTable, tableConfig } from './tableConfig';
+import { lookupTable, tableConfig } from './ConfigDropZone';
 
 export function RandomItem({ pattern }: { pattern: string }) {
   const [randomItem, setRandomItem] = useState(lookupTable(pattern));
