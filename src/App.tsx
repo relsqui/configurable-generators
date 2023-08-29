@@ -7,7 +7,6 @@ function App() {
   const defaultConfig: TableConfig = {
     schemaVersion: "0.1.0",
     title: "Configurable",
-    description: "",
     generators: {},
     tables: {},
     isDefault: true

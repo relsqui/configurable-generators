@@ -6,7 +6,7 @@ export type StringListMap = {
 
 export type TableConfig = {
   title: string,
-  description: string,
+  description?: string,
   link?: string,
   schemaVersion: string,
   contentVersion?: string,
@@ -15,11 +15,17 @@ export type TableConfig = {
   isDefault?: boolean
 }
 
-export function UploadForm({ importConfig } : { importConfig: (file: File | null) => void}) {
+export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
   return <>
     Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
-    <input ref={fileInput} className="fileInput" type="file" accept="application/json" onChange={(event) => importConfig((event.target.files || [])[0])} />
+    <input
+      ref={fileInput}
+      className="fileInput"
+      type="file"
+      accept="application/json"
+      onChange={(event) => importConfig((event.target.files || [])[0])}
+    />
   </>;
 }
 
@@ -34,15 +40,8 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
     setClassName(`${defaultClass} dropZoneError`);
   }
 
-  function resetDropZone() {
-    setClassName(defaultClass);
-    setText(defaultText);
-  }
-
   function importConfig(file: File | null) {
     if (file?.type !== 'application/json') return dropError();
-    resetDropZone();
-
     const reader = new FileReader();
     reader.onload = function (event) {
       if (event.target?.result) {
@@ -60,7 +59,8 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
 
   function onDragLeave(event: React.DragEvent<HTMLDivElement>) {
     event.preventDefault();
-    resetDropZone();
+    setClassName(defaultClass);
+    setText(defaultText);
   }
 
   function onDrop(event: React.DragEvent<HTMLDivElement>) {
@@ -74,5 +74,5 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
 
   return <div className={className} onDrop={onDrop} onDragOver={onDragOver} onDragLeave={onDragLeave}>
     {text ? text : <UploadForm importConfig={importConfig} />}
-    </div>;
+  </div>;
 }
