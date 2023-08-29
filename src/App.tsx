@@ -38,6 +38,7 @@ function App() {
     <div className="App">
       <GeneratorHeader generators={generators} selectedGenerator={generator} setGenerator={setGenerator} />
       <Generator generator={generator} />
+      <footer><a target="_blank" rel="noreferrer" href="https://icons8.com/icon/dBZiqj6QUc4V/die">Die</a> icon by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a></footer>
     </div>
   );
 }

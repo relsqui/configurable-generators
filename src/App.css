@@ -1,22 +1,47 @@
 :root {
-  --dark-gray: #282c34;
-  --light-gray: #b8bab8;
+  --dark: #282c34;
+  --medium: #807882;
+  --medium-blue: #8070a2;
+  --light: #b8bab8;
 }
 
 body {
-  background-color: var(--dark-gray);
-  color: var(--light-gray);
+  background-color: var(--dark);
+  color: var(--light);
 }
 
-.Generators {
+a {
+  color: var(--medium-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+header {
   display: block;
   position: absolute;
   top: 0px;
+  font-size: 2vmin;
 }
 
-.selectedGenerator {
-  cursor: default;
-  border-bottom: medium var(--light-gray) dotted;
+footer {
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  font-size: 2vmin;
+  color: var(--medium);
+  align-self: end;
 }
 
 .App {
@@ -35,26 +60,21 @@ body {
   white-space: break-spaces;
 }
 
-button {
-  font-size: inherit;
-  font-family: inherit;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  cursor: pointer;
+.selectedGenerator {
+  cursor: default;
+  border-bottom: medium var(--light) dotted;
 }
 
 .generatorButton {
-  background-color: var(--dark-gray);
-  color: var(--light-gray);
+  background-color: var(--dark);
+  color: var(--light);
   margin: 10px;
   border-radius: 0;
-  font-size: 2vmin;
 }
 
 .randomItemButton {
-  background-color: var(--light-gray);
-  color: var(--dark-gray);
+  background-color: var(--light);
+  color: var(--dark);
   cursor: pointer;
   margin: 2px;
 }
