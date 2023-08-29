@@ -1,28 +1,56 @@
 import { useState } from "react";
-import { lookupTable, tableConfig } from './ConfigDropZone';
+import { TableConfig, StringListMap } from "./ConfigDropZone";
 
-export function RandomItem({ pattern }: { pattern: string }) {
-  const [randomItem, setRandomItem] = useState(lookupTable(pattern));
+function GeneratorButton({ generator, selected, selectGenerator }: {
+  generator: string,
+  selected: boolean,
+  selectGenerator: () => void
+}) {
+  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`
+  return (
+    <button className={className} key={generator} onClick={selectGenerator}>{generator}</button>
+  )
+}
+
+export function GeneratorHeader({ generators, selectedGenerator, setGenerator }: {
+  generators: string[],
+  selectedGenerator: string,
+  setGenerator: React.Dispatch<React.SetStateAction<string>>
+}) {
+  return <header>{
+    generators.map((g) =>
+      <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} selectGenerator={() => setGenerator(g)} />
+    )
+  }</header>
+}
+
+function RandomItem({ choices, fallback }: { choices: string[], fallback: string }) {
+  const [randomItem, setRandomItem] = useState(chooseItem());
+
+  function chooseItem() {
+    return choices[Math.floor(Math.random() * choices.length)] || fallback;
+  }
 
   function regenerate() {
     let newItem = randomItem;
+    // if we choose the same one we just had, try again
     while (newItem === randomItem) {
-      newItem = lookupTable(pattern);
+      newItem = chooseItem();
     }
     setRandomItem(newItem);
   }
 
   return (
-    <button onClick={regenerate} className="randomItemButton">{randomItem.toLowerCase()}</button>
+    <button onClick={choices ? regenerate : () => null} className="randomItemButton">{randomItem.toLowerCase()}</button>
   );
 }
 
-function GeneratorLine({ line }: { line: string }) {
+function GeneratorLine({ line, tables }: { line: string, tables: StringListMap }) {
   const re = /(<[^>]*>)/;
-  const segments = line.split(re).map((segment) => {
+  const segments = line.split(re).map((segment, index) => {
     if (re.test(segment)) {
       const pattern = segment.slice(1, -1);
-      return <RandomItem pattern={pattern} />
+      return <RandomItem key={index} choices={tables[pattern]} fallback={segment} />
     }
     return segment;
   })
@@ -31,10 +59,10 @@ function GeneratorLine({ line }: { line: string }) {
   </p>
 }
 
-export function Generator({ generator }: { generator: string }) {
+export function Generator({ generator, config }: { generator: string, config: TableConfig }) {
   return (
-    <p>
-      {tableConfig.generators[generator].map((line) => <GeneratorLine line={line} key={line} />)}
-    </p>
+    <div>
+      {config.generators[generator].map((line) => <GeneratorLine line={line} key={line} tables={config.tables} />)}
+    </div>
   )
 }

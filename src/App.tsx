@@ -1,49 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Generator } from './Generator';
-import { ConfigDropZone, tableConfig } from './ConfigDropZone';
-
-
-function GeneratorButton({ generator, selected, selectGenerator }: {
-  generator: string,
-  selected: boolean,
-  selectGenerator: () => void
-}) {
-  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`
-  return (
-    <button className={className} key={generator} onClick={selectGenerator}>{generator}</button>
-  )
-}
-
-function GeneratorHeader({ generators, selectedGenerator, setGenerator }: {
-  generators: string[],
-  selectedGenerator: string,
-  setGenerator: React.Dispatch<React.SetStateAction<string>>
-}) {
-  return <header>{
-    generators.map((g) =>
-      <GeneratorButton generator={g} selected={g === selectedGenerator} selectGenerator={() => setGenerator(g)} />
-    )
-  }</header>
-}
+import { Generator, GeneratorHeader } from './Generator';
+import { TableConfig, ConfigDropZone } from './ConfigDropZone';
 
 function App() {
-  const generators = Object.keys(tableConfig.generators);
-  const [generator, setGenerator] = useState(generators[0]);
+  const defaultConfig: TableConfig = {
+    schemaVersion: "0.1.0",
+    title: "Configurable",
+    description: "",
+    generators: {},
+    tables: {},
+    isDefault: true
+  };
+
+  const [config, setConfig] = useState(defaultConfig);
+  const [generator, setGenerator] = useState(Object.keys(config.generators)[0]);
+
   useEffect(() => {
-    document.title = `${tableConfig.title} Generators`
-  })
-  const configIsEmpty = Object.keys(tableConfig.generators).length + Object.keys(tableConfig.tables).length === 0;
+    document.title = `${config.title} Generators`
+  }, [config])
+
+  function configLoadedCallback(config: TableConfig) {
+    setConfig(config);
+    setGenerator(Object.keys(config.generators)[0]);
+  }
 
   return (
     <div className="App">
-      <GeneratorHeader generators={generators} selectedGenerator={generator} setGenerator={setGenerator} />
       {
-        configIsEmpty ?
-        <ConfigDropZone /> :
-        <Generator generator={generator} />
+        config.isDefault ?
+          <ConfigDropZone configLoadedCallback={configLoadedCallback} /> :
+          <>
+            <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} setGenerator={setGenerator} />
+            <Generator generator={generator} config={config} />
+          </>
       }
-      <footer><a target="_blank" rel="noreferrer" href="https://icons8.com/icon/dBZiqj6QUc4V/die">Die</a> icon by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a></footer>
+      <footer>
+        <div className="iconCredit">
+          <a target="_blank" rel="noreferrer" href="https://icons8.com/icon/dBZiqj6QUc4V/die">Die</a> icon by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a>
+        </div>
+        <div className="configDescription">
+          {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
+        </div>
+      </footer>
     </div>
   );
 }

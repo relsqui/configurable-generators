@@ -1,13 +1,15 @@
 :root {
-  --dark: #282c34;
-  --medium: #807882;
+  --dark-gray: #282c34;
+  --medium-gray: #807882;
+  --light-gray: #b8bab8;
   --medium-blue: #8070a2;
-  --light: #b8bab8;
+  --dark-blue: #585888;
+  --medium-red: #a27070;
 }
 
 body {
-  background-color: var(--dark);
-  color: var(--light);
+  background-color: var(--dark-gray);
+  color: var(--light-gray);
 }
 
 a {
@@ -17,6 +19,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+a:visited {
+  color: var(--dark-blue);
 }
 
 button {
@@ -32,16 +38,27 @@ header {
   display: block;
   position: absolute;
   top: 0px;
-  font-size: calc(1.5em + 1vmin);
+  font-size: calc(10px + 1vmin);
 }
 
 footer {
-  display: block;
   position: absolute;
-  bottom: 10px;
-  font-size: 0.8em;
-  color: var(--medium);
-  align-self: end;
+  bottom: 0;
+  width: 100vw;
+  font-size: calc(15px + 0.5vmin);
+}
+
+.iconCredit {
+  float: right;
+  clear: none;
+  margin: 10px;
+  color: var(--medium-gray);
+}
+
+.configDescription {
+  float: left;
+  clear: none;
+  margin: 10px;
 }
 
 .App {
@@ -51,7 +68,7 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(1em + 1.5vmin);
+  font-size: calc(5px + 1vmin);
 }
 
 .ConfigDropZone {
@@ -60,34 +77,42 @@ footer {
   width: 80vw;
   margin: 20px;
   padding: 5vmin;
-  border: calc(5px + 1vmin) var(--light) dashed;
+  border: calc(5px + 1vmin) var(--light-gray) dashed;
   justify-content: center;
   align-items: center;
-  font-size: calc(1em + 1.5vmin);
+  font-size: calc(15px + 1.5vmin);
+}
+
+.dropZoneDragged {
+  background: var(--dark-blue);
+}
+
+.dropZoneError {
+  background: var(--medium-red);
 }
 
 .generatorLine {
   display: flex;
   align-items: center;
   white-space: break-spaces;
-  font-size: calc(2.5em + 1vmin);
+  font-size: calc(24px + 1vmin);
 }
 
 .selectedGenerator {
   cursor: default;
-  border-bottom: medium var(--light) dotted;
+  border-bottom: medium var(--light-gray) dotted;
 }
 
 .generatorButton {
-  background-color: var(--dark);
-  color: var(--light);
+  background-color: var(--dark-gray);
+  color: var(--light-gray);
   margin: 10px;
   border-radius: 0;
 }
 
 .randomItemButton {
-  background-color: var(--light);
-  color: var(--dark);
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
   cursor: pointer;
   margin: 2px;
 }
