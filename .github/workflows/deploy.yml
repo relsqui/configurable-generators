@@ -4,24 +4,28 @@ name: Build and deploy
 on:
   workflow_dispatch:
 
+env:
+  AWS_REGION: us-west-1
+  AWS_ROLE: GitHubS3Sync
+  AWS_S3_BUCKET: configurable-generators
+  AWS_SESSION_NAME: DeployConfigurableGenerators
+
 jobs:
   deploy-to-s3:
     name: Build and deploy
     runs-on: ubuntu-latest
-    env:
-      AWS_ROLE_NAME: GitHubS3Sync
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - run: npm ci
       - run: npm run build
-      - uses: amancevice/aws-sts-assume-role@v1
+      - uses: aws-actions/configure-aws-credentials@v3
         with:
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-arn: "arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ env.AWS_ROLE_NAME }}"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ROLE }}
+          role-session-name: ${{ env.AWS_SESSION_NAME }}
       - run: |
           tree build
           aws s3 sync build "s3://${AWS_S3_BUCKET}" || aws s3 sync build --debug "s3://${AWS_S3_BUCKET}"
-        env:
-          AWS_S3_BUCKET: configurable-generators
