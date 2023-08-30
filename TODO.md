@@ -1,8 +1,8 @@
-- set up a domain name
 - fix the spacing of adjacent random items (again)
 - store config locally so you don't lose it on refresh or navigate
 - write a readme and make the repo public
-- button to reroll the whole category, pins for individual random items
 - switch syntax to tracery?
-- undo button for individual random items
 - add a config editor
+- set up a domain name
+- button to reroll the whole category, pins for individual random items
+- undo button for individual random items
