@@ -4,14 +4,12 @@ name: Build and deploy
 on:
   workflow_dispatch:
 
-env:
-  AWS_ROLE_NAME: GitHubS3Sync
-  AWS_S3_BUCKET: configurable-generators
-
 jobs:
   deploy-to-s3:
     name: Build and deploy
     runs-on: ubuntu-latest
+    env:
+      AWS_ROLE_NAME: GitHubS3Sync
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,4 +20,8 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-arn: "arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ env.AWS_ROLE_NAME }}"
-      - run: aws s3 sync build "s3://${AWS_S3_BUCKET}"
+      - run: |
+          echo aws s3 sync build "s3://${AWS_S3_BUCKET}"
+          aws s3 sync build "s3://${AWS_S3_BUCKET}"
+        env:
+          AWS_S3_BUCKET: configurable-generators
