@@ -21,7 +21,8 @@ jobs:
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-arn: "arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ env.AWS_ROLE_NAME }}"
       - run: |
-          echo aws s3 sync build "s3://${AWS_S3_BUCKET}"
+          tree build
           aws s3 sync build "s3://${AWS_S3_BUCKET}"
+          aws s3 sync build --debug "s3://${AWS_S3_BUCKET}"
         env:
           AWS_S3_BUCKET: configurable-generators
