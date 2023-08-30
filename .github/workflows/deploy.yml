@@ -1,0 +1,35 @@
+---
+name: Build & deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-west-2
+  AWS_ROLE_NAME: GitHubS3Sync
+  AWS_S3_BUCKET: configurable-generators
+
+jobs:
+  deploy-to-s3:
+    name: Build & deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      - name: Build app
+        run: |
+          npm ci
+          npm build
+      - name: Assume AWS role
+        uses: amancevice/aws-sts-assume-role@v1
+        with:
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-arn: "arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ env.AWS_ROLE_NAME }}"
+          region: ${{ env.AWS_REGION }}
+      - name: Sync to s3
+        run: |
+          aws s3 sync build "s3://${AWS_S3_BUCKET}"
