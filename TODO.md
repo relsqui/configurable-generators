@@ -1,4 +1,3 @@
-- store config locally so you don't lose it on refresh or navigate
 - write a readme and make the repo public
 - add a config editor
 - set up a domain name

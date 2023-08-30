@@ -18,10 +18,23 @@ function CloseButton({ setConfig }: { setConfig: React.Dispatch<React.SetStateAc
 function App() {
   const [config, setConfig] = useState(defaultConfig);
   const [generator, setGenerator] = useState(Object.keys(config.generators)[0]);
+  const configStorageLabel = 'generatorConfig';
 
   useEffect(() => {
-    document.title = `${config.title} Generators`
-  }, [config])
+    const storedConfig = localStorage.getItem(configStorageLabel);
+    if (storedConfig) {
+      const { config: savedConfig, generator: savedGenerator } = JSON.parse(storedConfig);
+      setConfig(savedConfig);
+      setGenerator(savedGenerator || savedConfig.generators[0]);
+    }
+  }, [])
+
+  useEffect(() => {
+    document.title = `${config.title} Generators`;
+    if (!config.isDefault) {
+      localStorage.setItem(configStorageLabel, JSON.stringify({config, generator}));
+    }
+  }, [config, generator])
 
   function configLoadedCallback(config: TableConfig) {
     setConfig(config);
