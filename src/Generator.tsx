@@ -50,7 +50,7 @@ function GeneratorLine({ line, tables }: { line: string, tables: StringListMap }
       const pattern = segment.slice(1, -1);
       return <RandomItem key={index} choices={tables[pattern] || []} fallback={segment} />
     }
-    return <span>{segment}</span>;
+    return <span key={index}>{segment}</span>;
   })
   return <p className="generatorLine">
     {segments}
