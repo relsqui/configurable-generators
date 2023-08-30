@@ -1,6 +1,5 @@
-- store config locally so you don't lose it on refresh or navigate (+ a button to go back to load screen)
+- store config locally so you don't lose it on refresh or navigate
 - write a readme and make the repo public
-- switch syntax to tracery?
 - add a config editor
 - set up a domain name
 - button to reroll the whole category, pins for individual random items

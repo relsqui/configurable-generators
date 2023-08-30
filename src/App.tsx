@@ -3,15 +3,19 @@ import './App.css';
 import { Generator, GeneratorHeader } from './Generator';
 import { TableConfig, ConfigDropZone } from './ConfigDropZone';
 
-function App() {
-  const defaultConfig: TableConfig = {
-    schemaVersion: "0.1.0",
-    title: "Configurable",
-    generators: {},
-    tables: {},
-    isDefault: true
-  };
+const defaultConfig: TableConfig = {
+  schemaVersion: "0.1.0",
+  title: "Configurable",
+  generators: {},
+  tables: {},
+  isDefault: true
+};
 
+function CloseButton({ setConfig }: { setConfig: React.Dispatch<React.SetStateAction<TableConfig>> }) {
+  return <button className="closeButton" onClick={() => setConfig(defaultConfig) }>X</button>
+}
+
+function App() {
   const [config, setConfig] = useState(defaultConfig);
   const [generator, setGenerator] = useState(Object.keys(config.generators)[0]);
 
@@ -30,7 +34,10 @@ function App() {
         config.isDefault ?
           <ConfigDropZone configLoadedCallback={configLoadedCallback} /> :
           <>
-            <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} setGenerator={setGenerator} />
+            <header>
+              <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} setGenerator={setGenerator} />
+              <CloseButton setConfig={setConfig} />
+            </header>
             <Generator generator={generator} config={config} />
           </>
       }

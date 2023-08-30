@@ -6,10 +6,8 @@ function GeneratorButton({ generator, selected, selectGenerator }: {
   selected: boolean,
   selectGenerator: () => void
 }) {
-  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`
-  return (
-    <button className={className} key={generator} onClick={selectGenerator}>{generator}</button>
-  )
+  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`;
+  return <button className={className} key={generator} onClick={selectGenerator}>{generator}</button>;
 }
 
 export function GeneratorHeader({ generators, selectedGenerator, setGenerator }: {
@@ -17,11 +15,11 @@ export function GeneratorHeader({ generators, selectedGenerator, setGenerator }:
   selectedGenerator: string,
   setGenerator: React.Dispatch<React.SetStateAction<string>>
 }) {
-  return <header>{
+  return <>{
     generators.map((g) =>
       <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} selectGenerator={() => setGenerator(g)} />
     )
-  }</header>
+  }</>;
 }
 
 function RandomItem({ choices, fallback }: { choices: string[], fallback: string }) {

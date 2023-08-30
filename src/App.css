@@ -29,9 +29,9 @@ button {
   font-size: inherit;
   font-family: inherit;
   border: none;
-  border-radius: 10px;
+  border-radius: calc(2px + 1vmin);
   margin: 1px;
-  padding: calc(1px + 1vmin);
+  padding: calc(2px + 1vmin);
   cursor: pointer;
 }
 
@@ -108,10 +108,23 @@ footer {
   border-bottom: medium var(--light-gray) dotted;
 }
 
-.generatorButton {
+header button {
   background-color: var(--dark-gray);
   color: var(--light-gray);
+}
+
+.generatorButton {
   border-radius: 0;
+}
+
+.closeButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  aspect-ratio: 1;
+  border: medium var(--light-gray) solid;
+  line-height: 0;
 }
 
 randomItem {
