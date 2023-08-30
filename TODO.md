@@ -1,5 +1,4 @@
-- fix the spacing of adjacent random items (again)
-- store config locally so you don't lose it on refresh or navigate
+- store config locally so you don't lose it on refresh or navigate (+ a button to go back to load screen)
 - write a readme and make the repo public
 - switch syntax to tracery?
 - add a config editor
