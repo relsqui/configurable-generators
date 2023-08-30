@@ -1,4 +1,3 @@
-- set up CI deploys
 - set up a domain name
 - fix the spacing of adjacent random items (again)
 - store config locally so you don't lose it on refresh or navigate
