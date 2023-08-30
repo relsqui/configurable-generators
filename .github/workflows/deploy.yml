@@ -1,5 +1,5 @@
 ---
-name: Build & deploy
+name: Build and deploy
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ env:
 
 jobs:
   deploy-to-s3:
-    name: Build & deploy
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
@@ -22,7 +22,7 @@ jobs:
       - name: Build app
         run: |
           npm ci
-          npm build
+          npm run build
       - name: Assume AWS role
         uses: amancevice/aws-sts-assume-role@v1
         with:
