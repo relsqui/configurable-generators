@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TableConfig, StringListMap } from "./ConfigDropZone";
+import { TableConfig, StringListMap } from "./tableConfig";
 
 function GeneratorButton({ generator, selected, selectGenerator }: {
   generator: string,
@@ -66,10 +66,31 @@ function GeneratorLine({ line, tables, storageKey }: { line: string, tables: Str
   </p>
 }
 
-export function Generator({ generator, config }: { generator: string, config: TableConfig }) {
+function Generator({ generator, config }: { generator: string, config: TableConfig }) {
   return (
     <div>
       {config.generators[generator].map((line) => <GeneratorLine line={line} key={line} storageKey={`${generator}/${line}`} tables={config.tables} />)}
     </div>
   )
+}
+
+function CloseButton({ closeButtonCallback }: { closeButtonCallback: () => void }) {
+  return <button className="closeButton" onClick={closeButtonCallback}>X</button>
+}
+
+export function GeneratorLayout({ config, generator, setGenerator, closeButtonCallback }: {
+  config: TableConfig,
+  generator: string,
+  setGenerator: React.Dispatch<React.SetStateAction<string>>,
+  closeButtonCallback: () => void
+}) {
+  return (
+    <>
+      <header>
+        <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} setGenerator={setGenerator} />
+        <CloseButton closeButtonCallback={closeButtonCallback} />
+      </header>
+      <Generator generator={generator} config={config} />
+    </>
+  );
 }

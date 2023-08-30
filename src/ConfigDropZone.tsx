@@ -1,19 +1,5 @@
 import React, { useState, useRef } from "react";
-
-export type StringListMap = {
-  [key: string]: string[]
-}
-
-export type TableConfig = {
-  title: string,
-  description?: string,
-  link?: string,
-  schemaVersion: string,
-  contentVersion?: string,
-  generators: StringListMap,
-  tables: StringListMap
-  isDefault?: boolean
-}
+import { TableConfig } from "./tableConfig";
 
 export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
