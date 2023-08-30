@@ -1,7 +1,6 @@
 - set up a domain name
 - fix the spacing of adjacent random items (again)
 - store config locally so you don't lose it on refresh or navigate
-- scrub derelict delvers config from git history
 - write a readme and make the repo public
 - button to reroll the whole category, pins for individual random items
 - switch syntax to tracery?
