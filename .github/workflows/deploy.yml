@@ -27,5 +27,5 @@ jobs:
           role-to-assume: ${{ env.AWS_ROLE }}
           role-session-name: ${{ env.AWS_SESSION_NAME }}
       - run: |
-          tree build
+          aws --version
           aws s3 sync build "s3://${AWS_S3_BUCKET}" || aws s3 sync build --debug "s3://${AWS_S3_BUCKET}"
