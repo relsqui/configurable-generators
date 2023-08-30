@@ -13,18 +13,13 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v3
-      - name: Build app
-        run: |
-          npm ci
-          npm run build
-      - name: Assume AWS role
-        uses: amancevice/aws-sts-assume-role@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - run: npm run build
+      - uses: amancevice/aws-sts-assume-role@v1
         with:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-arn: "arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ env.AWS_ROLE_NAME }}"
-      - name: Sync to s3
-        run: |
-          aws s3 sync build "s3://${AWS_S3_BUCKET}"
+      - run: aws s3 sync build "s3://${AWS_S3_BUCKET}"
