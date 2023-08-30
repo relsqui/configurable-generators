@@ -18,6 +18,7 @@ export type TableConfig = {
 export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
   return <>
+    {/* I have no idea why this nbsp is necessary but nothing else worked. */}
     Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
     <input
       ref={fileInput}
