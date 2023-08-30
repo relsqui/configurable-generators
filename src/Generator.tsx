@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableConfig, StringListMap } from "./ConfigDropZone";
 
 function GeneratorButton({ generator, selected, selectGenerator }: {
@@ -22,8 +22,17 @@ export function GeneratorHeader({ generators, selectedGenerator, setGenerator }:
   }</>;
 }
 
-function RandomItem({ choices, fallback }: { choices: string[], fallback: string }) {
-  const [randomItem, setRandomItem] = useState(chooseItem());
+function RandomItem({ choices, fallback, storageKey }: { choices: string[], fallback: string, storageKey: string }) {
+  const [randomItem, setRandomItem] = useState(storedItemIfAvailable());
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, randomItem);
+  }, [storageKey, randomItem])
+
+  function storedItemIfAvailable() {
+    const storedItem = localStorage.getItem(storageKey);
+    return storedItem || chooseItem();
+  }
 
   function chooseItem() {
     return choices[Math.floor(Math.random() * choices.length)] || fallback;
@@ -43,12 +52,12 @@ function RandomItem({ choices, fallback }: { choices: string[], fallback: string
   );
 }
 
-function GeneratorLine({ line, tables }: { line: string, tables: StringListMap }) {
+function GeneratorLine({ line, tables, storageKey }: { line: string, tables: StringListMap, storageKey: string }) {
   const re = /(<[^>]*>)/;
   const segments = line.split(re).map((segment, index) => {
     if (re.test(segment)) {
       const pattern = segment.slice(1, -1);
-      return <RandomItem key={index} choices={tables[pattern] || []} fallback={segment} />
+      return <RandomItem key={index} storageKey={`${storageKey}/${index}`} choices={tables[pattern] || []} fallback={segment} />
     }
     return <span key={index}>{segment}</span>;
   })
@@ -60,7 +69,7 @@ function GeneratorLine({ line, tables }: { line: string, tables: StringListMap }
 export function Generator({ generator, config }: { generator: string, config: TableConfig }) {
   return (
     <div>
-      {config.generators[generator].map((line) => <GeneratorLine line={line} key={line} tables={config.tables} />)}
+      {config.generators[generator].map((line) => <GeneratorLine line={line} key={line} storageKey={`${generator}/${line}`} tables={config.tables} />)}
     </div>
   )
 }
