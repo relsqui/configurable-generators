@@ -2,4 +2,3 @@
 - pins for individual random items
 - undo button for individual random items
 - add a config editor
-- document the infrastructure
