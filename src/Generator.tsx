@@ -25,16 +25,20 @@ export function GeneratorHeader({ generators, selectedGenerator, setGenerator }:
   }</>;
 }
 
-function RandomItem({ content }: { content: string }) {
+function RandomItem({ content, onClickRandomItem }: { content: string, onClickRandomItem: (tableKey: string) => void }) {
   return (
-    <button className="randomItem">{content.toLowerCase()}</button>
+    <button className="randomItem" onClick={() => onClickRandomItem('mood-sound')}>{content.toLowerCase()}</button>
   );
 }
 
-function GeneratorLine({ content }: { content: string[] }) {
+function GeneratorLine({ content, onClickRandomItem }: {
+  content: string[],
+  onClickRandomItem: (index: number, tableKey: string) => void
+}
+) {
   const segments = content.map((segment, index) => {
     if (pointyBracketsRe.test(segment)) {
-      return <RandomItem key={index} content={segment.slice(1, -1)} />
+      return <RandomItem key={index} content={segment.slice(1, -1)} onClickRandomItem={(tableKey: string) => onClickRandomItem(index, tableKey)} />
     }
     return <span key={index}>{segment}</span>;
   })
@@ -43,10 +47,13 @@ function GeneratorLine({ content }: { content: string[] }) {
   </p>
 }
 
-function Generator({ content }: { content: StringListMap }) {
+function Generator({ content, onClickRandomItem }: {
+  content: StringListMap,
+  onClickRandomItem: (line: string, index: number, tableKey: string) => void
+}) {
   return (
     <div>
-      {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} />)}
+      {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(line, index, tableKey)} />)}
     </div>
   )
 }
@@ -106,7 +113,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
               if (i !== index) {
                 newTextTree[generator][line].push(textTree[generator][line][i])
               } else {
-                newTextTree[generator][line].push(tableChoice(tableKey));
+                newTextTree[generator][line].push(`<${tableChoice(tableKey)}>`);
               }
             }
           }
@@ -122,7 +129,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
         <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} setGenerator={setGenerator} />
         <CloseButton closeButtonCallback={closeButtonCallback} />
       </header>
-      <Generator content={textTree[generator]} />
+      <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
       <RerollButton />
     </>
   );
