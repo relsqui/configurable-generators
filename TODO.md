@@ -2,4 +2,4 @@
 - pins for individual random items
 - undo button for individual random items
 - add a config editor
-- write a readme and make the repo public
+- document the infrastructure

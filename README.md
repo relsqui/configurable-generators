@@ -36,4 +36,7 @@ The generator config files are plain JSON. This example includes all the require
 
 ## Building the app
 
-See [Create React App](https://github.com/facebook/create-react-app)'s docs.
+See [Create React App](https://github.com/facebook/create-react-app)'s docs. TL;DR:
+
+* `npm start` to run a dev instance locally.
+* `npm run build` to package the app for deployment.
