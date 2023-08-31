@@ -1,5 +1,5 @@
 - set up a user-friendly hostname
-- write a readme and make the repo public
-- add a config editor
-- button to reroll the whole category, pins for individual random items
+- pins for individual random items
 - undo button for individual random items
+- add a config editor
+- write a readme and make the repo public

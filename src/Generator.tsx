@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableConfig } from "./tableConfig";
 import die from './static/icons/die.png';
 
@@ -72,7 +72,7 @@ function CloseButton({ closeButtonCallback }: { closeButtonCallback: () => void 
   return <button className="closeButton" onClick={closeButtonCallback}>X</button>
 }
 
-function RerollButton({ onReroll }: { onReroll: () => void}) {
+function RerollButton({ onReroll }: { onReroll: () => void }) {
   return <button className='reroll' onClick={onReroll}><img src={die} alt="Reroll" /></button>
 }
 export function GeneratorLayout({ config, generator, setGenerator, closeButtonCallback }: {
@@ -81,7 +81,20 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
   setGenerator: React.Dispatch<React.SetStateAction<string>>,
   closeButtonCallback: () => void
 }) {
-  const [textTree, setTextTree] = useState(buildTextTree());
+  const textTreeStorageLabel = "textTree";
+  const [textTree, setTextTree] = useState(storedTreeIfAvailable());
+
+  useEffect(() => {
+    localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
+  }, [textTree])
+
+  function storedTreeIfAvailable() {
+    const storedConfig = localStorage.getItem(textTreeStorageLabel);
+    if (storedConfig) {
+      return JSON.parse(storedConfig);
+    }
+    return buildTextTree();
+  }
 
   function tableChoice(tableKey: string) {
     const table = config.tables[tableKey];
@@ -93,7 +106,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
     for (const generator of Object.keys(config.generators)) {
       textTree[generator] = {};
       for (const line of config.generators[generator]) {
-        textTree[generator][line] = line.split(pointyBracketsRe).map((segment, index) => {
+        textTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
           if (pointyBracketsRe.test(segment)) {
             const tableKey = segment.slice(1, -1);
             // check for pins here, later
