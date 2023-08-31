@@ -7,6 +7,8 @@ import { TableConfig } from './tableConfig';
 const defaultConfig: TableConfig = {
   schemaVersion: "0.1.0",
   title: "Configurable",
+  description: "What is this?",
+  link: "https://github.com/relsqui/configurable-generators",
   generators: {},
   tables: {},
   isDefault: true

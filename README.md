@@ -1,6 +1,6 @@
 # Configurable Generators
 
-This is a static site that creates random text from a set of generator templates and content tables. It doesn't save or host any generators, it only reads configuration files provided by the user. That means game makers can distribute their own config files however they want (as a supplement to paper-and-dice data tables) and also that the app works completely offline.
+This is a static site that creates random text from a set of generator templates and content tables. It doesn't save or host any generators, it only reads configuration files provided by the user. That means game makers can distribute their own config files however they want (for example, as a digital supplement to paper-and-dice data tables). It also means the app works completely offline.
 
 ## Usage
 
@@ -14,7 +14,7 @@ You can try it out by downloading the [meal generator example config file](https
 
 ## Config files
 
-The generator config files are plain JSON. This example includes all the required elements:
+The generator config files are plain JSON. [This example](examples/generator-config-template.json) includes all the required elements:
 
 ```json
 {
@@ -51,12 +51,14 @@ There are also some optional top-level keys:
 * If the generator content refers to something which updates sometimes, you can use the `"contentVersion"` key to track what version this configuration is for.
   * Not to be confused with `"schemaVersion"` which is for the version of the configuration format itself.
 
-## Contributing or running your own
+## Contributing
 
 ### Building the app
 
 See [Create React App](https://github.com/facebook/create-react-app)'s docs. TL;DR:
 
+* clone the repository
+* `npm install` to install dependencies
 * `npm start` to run a dev instance locally.
 * `npm run build` to package the app for deployment.
 
