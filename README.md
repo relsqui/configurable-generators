@@ -51,6 +51,10 @@ There are also some optional top-level keys:
 * If the generator content refers to something which updates sometimes, you can use the `"contentVersion"` key to track what version this configuration is for.
   * Not to be confused with `"schemaVersion"` which is for the version of the configuration format itself.
 
+## License
+
+You're free to use, copy, and modify this code under the terms of the [MIT license](LICENSE).
+
 ## Contributing
 
 ### Building the app
