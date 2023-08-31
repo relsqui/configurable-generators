@@ -1,4 +1,5 @@
 - set up a user-friendly hostname
+- prevent re-randomizing to the same item
 - pins for individual random items
 - undo button for individual random items
 - add a config editor

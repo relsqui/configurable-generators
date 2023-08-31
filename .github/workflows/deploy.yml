@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: us-west-1
   AWS_ROLE: GitHubS3Sync
-  AWS_S3_BUCKET: configurable-generators
+  AWS_S3_BUCKET: generators.finn.fun
   AWS_SESSION_NAME: DeployConfigurableGenerators
 
 jobs:
