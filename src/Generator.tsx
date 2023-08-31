@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import md5 from 'md5';
 import { TableConfig } from "./tableConfig";
 import dieIcon from './static/icons/die.png';
 import exitIcon from './static/icons/exit.png';
@@ -90,12 +91,12 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
   setGenerator: React.Dispatch<React.SetStateAction<string>>,
   closeButtonCallback: () => void
 }) {
-  const textTreeStorageLabel = "textTree";
+  const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
   const [textTree, setTextTree] = useState(storedTreeIfAvailable());
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
-  }, [textTree])
+  }, [textTree, textTreeStorageLabel])
 
   function storedTreeIfAvailable() {
     const storedConfig = localStorage.getItem(textTreeStorageLabel);
