@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TableConfig, StringListMap } from "./tableConfig";
+import die from './static/icons/die.png';
 
 function GeneratorButton({ generator, selected, selectGenerator }: {
   generator: string,
@@ -78,6 +79,10 @@ function CloseButton({ closeButtonCallback }: { closeButtonCallback: () => void 
   return <button className="closeButton" onClick={closeButtonCallback}>X</button>
 }
 
+function RerollButton() {
+  return <button className='reroll'><img src={die} alt="Reroll" /></button>
+}
+
 export function GeneratorLayout({ config, generator, setGenerator, closeButtonCallback }: {
   config: TableConfig,
   generator: string,
@@ -91,6 +96,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
         <CloseButton closeButtonCallback={closeButtonCallback} />
       </header>
       <Generator generator={generator} config={config} />
+      <RerollButton />
     </>
   );
 }

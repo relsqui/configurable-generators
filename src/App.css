@@ -117,6 +117,16 @@ header button {
   border-radius: 0;
 }
 
+.reroll {
+  display: flex;
+  margin-top: calc(2vmin);
+  background: transparent;
+  border: none;
+  padding: 1px;
+  align-items: center;
+  justify-content: center;
+}
+
 .closeButton {
   position: fixed;
   top: 10px;
