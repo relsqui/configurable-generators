@@ -1,4 +1,4 @@
 - prevent re-randomizing to the same item
+- add a config editor
 - pins for individual random items
 - undo button for individual random items
-- add a config editor
