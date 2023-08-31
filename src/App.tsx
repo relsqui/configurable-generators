@@ -18,8 +18,7 @@ function Footer({ description, link }: { description: string | undefined, link: 
       {description} {link ? <a href={link}>Link</a> : ''}
     </div>
     <div className="iconCredit">
-      <a target="_blank" rel="noreferrer" href="https://icons8.com/icon/dBZiqj6QUc4V/die">Die</a>
-      {' '}icon by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a>
+      Icons by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a>
     </div>
   </footer>
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TableConfig } from "./tableConfig";
-import die from './static/icons/die.png';
+import dieIcon from './static/icons/die.png';
+import exitIcon from './static/icons/exit.png';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 
@@ -69,11 +70,19 @@ function Generator({ content, onClickRandomItem }: {
 }
 
 function CloseButton({ closeButtonCallback }: { closeButtonCallback: () => void }) {
-  return <button className="closeButton" onClick={closeButtonCallback}>X</button>
+  return (
+    <button className="closeButton" onClick={closeButtonCallback}>
+      <img src={exitIcon} alt="Close" />
+    </button>
+  );
 }
 
 function RerollButton({ onReroll }: { onReroll: () => void }) {
-  return <button className='reroll' onClick={onReroll}><img src={die} alt="Reroll" /></button>
+  return (
+    <button className='reroll' onClick={onReroll}>
+      <img src={dieIcon} alt="Reroll" />
+    </button>
+  )
 }
 export function GeneratorLayout({ config, generator, setGenerator, closeButtonCallback }: {
   config: TableConfig,
