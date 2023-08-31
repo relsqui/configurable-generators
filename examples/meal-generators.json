@@ -1,0 +1,69 @@
+{
+  "title": "Menu",
+  "schemaVersion": "0.1.0",
+  "generators": {
+    "Breakfast": [
+      "What about eggs <egg-style> with <vegetable>?",
+      "And <caffeine> or <fruit> juice to drink."
+    ],
+    "Lunch": [
+      "I'd like a <meat> and <vegetable> sandwich please,",
+      "and a tall glass of <fruit> juice."
+    ],
+    "Dinner": [
+      "On the menu tonight is <entree-prep> <meat> with <vegetable>.",
+      "For dessert, we have <fruit> <dessert>."
+    ]
+  },
+  "tables": {
+    "egg-style": [
+      "in an omelette",
+      "sunny side up",
+      "over easy",
+      "scrambled",
+      "benedict"
+    ],
+    "meat": [
+      "ham",
+      "beef",
+      "lamb",
+      "pork",
+      "bacon",
+      "chicken",
+      "turkey"
+    ],
+    "vegetable": [
+      "potatoes",
+      "spinach",
+      "broccoli",
+      "bell pepper",
+      "onion"
+    ],
+    "entree-prep": [
+      "grilled",
+      "braised",
+      "roasted",
+      "fried",
+      "baked"
+    ],
+    "caffeine": [
+      "coffee",
+      "espresso",
+      "tea",
+      "chai"
+    ],
+    "fruit": [
+      "apple",
+      "orange",
+      "cranberry",
+      "raspberry",
+      "grapefruit"
+    ],
+    "dessert": [
+      "pie",
+      "tart",
+      "galette",
+      "sorbet"
+    ]
+  }
+}

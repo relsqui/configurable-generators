@@ -1,0 +1,25 @@
+{
+  "title": "Config Template",
+  "schemaVersion": "0.1.0",
+  "generators": {
+    "Example": [
+      "Random color: <color>",
+      "Another (or possibly the same) random color: <color>"
+    ],
+    "Example 2": [
+      "An animal: <animal>"
+    ]
+  },
+  "tables": {
+    "color": [
+      "red",
+      "green",
+      "blue"
+    ],
+    "animal": [
+      "duck",
+      "ibex",
+      "orangutan"
+    ]
+  }
+}
