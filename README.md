@@ -4,13 +4,14 @@ This is a static site that creates random text from a set of generator templates
 
 ## Usage
 
-You can try it out by downloading the [meal generator example config file](https://raw.githubusercontent.com/relsqui/configurable-generators/main/examples/meal-generators.json) and then dragging it onto [generators.finn.fun](https://generators.finn.fun).
+You can try it out by going to [generators.finn.fun](http://generators.finn.fun) and selecting a preset. This one is Simple Meals:
 
 ![Screenshot of the meal generator example. It says: What about eggs (benedict) with (spinach)? And (coffee) or (cranberry) juice to drink.](examples/meal-generator-screenshot.png)
 
 * Select a generator from the menu at the top.
 * Click on any random item (like "benedict" or "spinach") to regenerate just that item.
 * Click the die at the bottom to regenerate all the items in the generator.
+* You can look at the config files for the presets in [src/static/presets](src/static/presets).
 
 ## Config files
 

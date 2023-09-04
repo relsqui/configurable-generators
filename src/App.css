@@ -25,7 +25,8 @@ a:visited {
   color: var(--dark-blue);
 }
 
-button {
+button,
+select {
   font-size: inherit;
   font-family: inherit;
   border: none;

@@ -6,7 +6,7 @@ import { TableConfig } from './tableConfig';
 
 const defaultConfig: TableConfig = {
   schemaVersion: "0.1.0",
-  title: "Configurable",
+  title: "Select Configuration",
   description: "What is this?",
   link: "https://github.com/relsqui/configurable-generators",
   generators: {},
@@ -32,7 +32,7 @@ function App() {
   const [generator, setGenerator] = useState(initialGenerator);
 
   useEffect(() => {
-    document.title = `${config.title} Generators`;
+    document.title = `${config.title} | Configurable Generators`;
     if (!config.isDefault) {
       localStorage.setItem(configStorageLabel, JSON.stringify({ config, generator }));
     }

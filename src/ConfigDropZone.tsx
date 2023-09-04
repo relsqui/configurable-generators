@@ -3,7 +3,7 @@ import { TableConfig } from "./tableConfig";
 
 export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
-  return <>
+  return <p>
     {/* I have no idea why this nbsp is necessary but nothing else worked. */}
     Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
     <input
@@ -13,7 +13,31 @@ export function UploadForm({ importConfig }: { importConfig: (file: File | null)
       accept="application/json"
       onChange={(event) => importConfig((event.target.files || [])[0])}
     />
-  </>;
+  </p>;
+}
+
+export function SelectPreset({ configLoadedCallback }: { configLoadedCallback: (config: TableConfig) => void }) {
+  // https://webpack.js.org/guides/dependency-management/#require-context
+  const requirePresets = require.context('./static/presets/', true, /\.json$/);
+  const presets: { [key: string]: TableConfig } = {};
+  for (const presetFile of requirePresets.keys()) {
+    const preset = requirePresets(presetFile);
+    presets[preset.title] = preset;
+  }
+
+  function selectPreset(event: React.ChangeEvent<HTMLSelectElement>) {
+    const presetTitle = event.target.value;
+    if (presets[presetTitle]) {
+      configLoadedCallback(presets[presetTitle]);
+    }
+  }
+
+  return <p>
+    Or choose a preset: <select value="" onChange={selectPreset}>
+      <option></option>
+      {Object.keys(presets).map(presetTitle => <option key={presetTitle} value={presetTitle}>{presetTitle}</option>)}
+    </select>
+  </p>;
 }
 
 export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback: (config: TableConfig) => void }) {
@@ -60,6 +84,9 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
   }
 
   return <div className={className} onDrop={onDrop} onDragOver={onDragOver} onDragLeave={onDragLeave}>
-    {text ? text : <UploadForm importConfig={importConfig} />}
+    {text ? text : <div>
+      <UploadForm importConfig={importConfig} />
+      <SelectPreset configLoadedCallback={configLoadedCallback} />
+    </div>}
   </div>;
 }

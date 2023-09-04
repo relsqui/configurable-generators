@@ -39,7 +39,7 @@ export function GeneratorHeader({ generators, selectedGenerator, setGenerator }:
 
 function RandomItem({ content, onClickRandomItem }: { content: TableSelection, onClickRandomItem: (tableKey: string) => void }) {
   return (
-    <button className="randomItem" onClick={() => onClickRandomItem(content.tableKey)}>{content.text.toLowerCase()}</button>
+    <button className="randomItem" onClick={() => onClickRandomItem(content.tableKey)}>{content.text}</button>
   );
 }
 
