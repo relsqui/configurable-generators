@@ -1,4 +1,3 @@
-- add selectable public presets
 - add a config editor
 - prevent re-randomizing to the same item
 - pins for individual random items
