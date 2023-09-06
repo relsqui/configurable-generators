@@ -21,7 +21,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "gh workflow run deploy.yml && sleep 3 && gh run list --workflow=deploy.yml --json databaseId --jq '.[0].databaseId' | xargs gh run watch && echo -e '\\a'"
   },
