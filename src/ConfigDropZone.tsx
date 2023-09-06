@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { TableConfig } from "./tableConfig";
+import { presets } from "./presets";
 
 export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
@@ -18,12 +19,6 @@ export function UploadForm({ importConfig }: { importConfig: (file: File | null)
 
 export function SelectPreset({ configLoadedCallback }: { configLoadedCallback: (config: TableConfig) => void }) {
   // https://webpack.js.org/guides/dependency-management/#require-context
-  const requirePresets = require.context('./static/presets/', true, /\.json$/);
-  const presets: { [key: string]: TableConfig } = {};
-  for (const presetFile of requirePresets.keys()) {
-    const preset = requirePresets(presetFile);
-    presets[preset.title] = preset;
-  }
 
   function selectPreset(event: React.ChangeEvent<HTMLSelectElement>) {
     const presetTitle = event.target.value;
@@ -58,7 +53,7 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
       if (event.target?.result) {
         configLoadedCallback(JSON.parse(event.target.result.toString()) as TableConfig);
       }
-    }
+    };
     reader.readAsText(file);
   }
 
