@@ -1,5 +1,4 @@
 - add a config editor
-- cache more than the most recent config, including local, and make a local config selector
 - prevent re-randomizing to the same item
 - pins for individual random items
 - undo button for individual random items

@@ -33,27 +33,19 @@ function App() {
   const [generator, setGenerator] = useState('');
   const [hash, setHash] = useHash();
 
-  const configLoadedCallback = useCallback((config: TableConfig) => {
+  const configLoadedCallback: (config: TableConfig) => void = useCallback((config: TableConfig) => {
     setConfig(config);
     setHash(titleToSlug(config.title));
     setGenerator(Object.keys(config.generators)[0]);
   }, [setHash]);
 
-  const closeButtonCallback = useCallback(() => {
-    setConfig(defaultConfig);
-    setHash('');
-    localStorage.removeItem(configStorageLabel);
-  }, [setHash]);
-
   useEffect(() => {
     // strip the # from the hash
     const slug = hash.slice(1);
-    if (!slug) {
-      closeButtonCallback();
-    } else if (presetsBySlug[slug]) {
+    if (presetsBySlug[slug]) {
       configLoadedCallback(presetsBySlug[slug]);
     }
-  }, [hash, configLoadedCallback, closeButtonCallback ]);
+  }, [hash, configLoadedCallback ]);
 
   useEffect(() => {
     document.title = `${config.title} | Configurable Generators`;
@@ -61,6 +53,12 @@ function App() {
       localStorage.setItem(configStorageLabel, JSON.stringify({ config, generator }));
     }
   }, [config, generator]);
+
+  function closeButtonCallback() {
+    setConfig(defaultConfig);
+    setHash('');
+    localStorage.removeItem(configStorageLabel);
+  }
 
   return (
     <div className="App">
