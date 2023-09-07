@@ -58,7 +58,7 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
       if (event.target?.result) {
         configLoadedCallback(JSON.parse(event.target.result.toString()) as TableConfig);
       }
-    }
+    };
     reader.readAsText(file);
   }
 

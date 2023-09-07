@@ -22,7 +22,7 @@ function Footer({ description, link }: { description: string | undefined, link: 
     <div className="iconCredit">
       Icons by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a>
     </div>
-  </footer>
+  </footer>;
 }
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
     if (!config.isDefault) {
       localStorage.setItem(configStorageLabel, JSON.stringify({ config, generator }));
     }
-  }, [config, generator])
+  }, [config, generator]);
 
   function storedConfigIfAvailable() {
     const returnConfig = { config: defaultConfig, generator: '' };

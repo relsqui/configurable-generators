@@ -50,13 +50,13 @@ function GeneratorLine({ content, onClickRandomItem }: {
 ) {
   const selections = content.map((selection, index) => {
     if (selection.tableKey) {
-      return <RandomItem key={index} content={selection as TableSelection} onClickRandomItem={(tableKey: string) => onClickRandomItem(index, tableKey)} />
+      return <RandomItem key={index} content={selection as TableSelection} onClickRandomItem={(tableKey: string) => onClickRandomItem(index, tableKey)} />;
     }
     return <span key={index}>{selection.text}</span>;
-  })
+  });
   return <p className="generatorLine">
     {selections}
-  </p>
+  </p>;
 }
 
 function Generator({ content, onClickRandomItem }: {
@@ -67,7 +67,7 @@ function Generator({ content, onClickRandomItem }: {
     <div>
       {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(line, index, tableKey)} />)}
     </div>
-  )
+  );
 }
 
 function CloseButton({ closeButtonCallback }: { closeButtonCallback: () => void }) {
@@ -83,7 +83,7 @@ function RerollButton({ onReroll }: { onReroll: () => void }) {
     <button className='reroll' onClick={onReroll}>
       <img src={dieIcon} alt="Reroll" />
     </button>
-  )
+  );
 }
 export function GeneratorLayout({ config, generator, setGenerator, closeButtonCallback }: {
   config: TableConfig,
@@ -96,7 +96,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
-  }, [textTree, textTreeStorageLabel])
+  }, [textTree, textTreeStorageLabel]);
 
   function storedTreeIfAvailable() {
     const storedConfig = localStorage.getItem(textTreeStorageLabel);
@@ -108,7 +108,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
 
   function tableChoice(tableKey: string) {
     const table = config.tables[tableKey];
-    return table[Math.floor(Math.random() * table.length)]
+    return table[Math.floor(Math.random() * table.length)];
   }
 
   function buildTextTree() {
@@ -123,7 +123,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
             return { text: tableChoice(tableKey) || segment, tableKey } as Segment;
           }
           return { text: segment } as Segment;
-        })
+        });
       }
     }
     return textTree;
@@ -143,7 +143,7 @@ export function GeneratorLayout({ config, generator, setGenerator, closeButtonCa
             newTextTree[generator][line] = [];
             for (let i = 0; i < textTree[generator][line].length; i++) {
               if (i !== index) {
-                newTextTree[generator][line].push(textTree[generator][line][i])
+                newTextTree[generator][line].push(textTree[generator][line][i]);
               } else {
                 newTextTree[generator][line].push({ text: tableChoice(tableKey), tableKey });
               }
