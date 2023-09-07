@@ -1,42 +1,17 @@
-import React, { useState, useRef } from "react";
-import { TableConfig } from "../tableConfig";
-import { PresetDropdown } from "../routes/PresetDropdown";
+import React, { useState, ReactNode } from "react";
+import { loadConfig } from "./UploadButton";
+import { useNavigate } from "react-router-dom";
 
-export function UploadForm({ importConfig }: { importConfig: (file: File | null) => void }) {
-  const fileInput = useRef<HTMLInputElement>(null);
-  return <p>
-    {/* I have no idea why this nbsp is necessary but nothing else worked. */}
-    Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
-    <input
-      ref={fileInput}
-      className="fileInput"
-      type="file"
-      accept="application/json"
-      onChange={(event) => importConfig((event.target.files || [])[0])}
-    />
-  </p>;
-}
-
-export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback: (config: TableConfig) => void }) {
+export function ConfigDropZone({ children }: { children: ReactNode }) {
   const defaultText = '';
   const defaultClass = 'ConfigDropZone';
   const [className, setClassName] = useState(defaultClass);
   const [text, setText] = useState(defaultText);
+  const navigate = useNavigate();
 
   function dropError(message = 'JSON files only, please.') {
     setText(message);
     setClassName(`${defaultClass} dropZoneError`);
-  }
-
-  function importConfig(file: File | null) {
-    if (file?.type !== 'application/json') return dropError();
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      if (event.target?.result) {
-        configLoadedCallback(JSON.parse(event.target.result.toString()) as TableConfig);
-      }
-    };
-    reader.readAsText(file);
   }
 
   function onDragOver(event: React.DragEvent<HTMLDivElement>) {
@@ -57,13 +32,12 @@ export function ConfigDropZone({ configLoadedCallback }: { configLoadedCallback:
     const item = event.dataTransfer.items[0];
     if (item.kind !== 'file') return dropError();
     const file = item.getAsFile();
-    importConfig(file);
+    loadConfig(navigate, file);
   }
 
   return <div className={className} onDrop={onDrop} onDragOver={onDragOver} onDragLeave={onDragLeave}>
     {text ? text : <div>
-      <UploadForm importConfig={importConfig} />
-      <PresetDropdown label="Or use a preset: " />
+      {children}
     </div>}
   </div>;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { titleToSlug } from '../refactored/presets';
-import { presets } from '../refactored/presets';
+import { titleToSlug } from './presets';
+import { presets } from './presets';
 
 export function PresetDropdown({ label = '' }: { label: string }) {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function PresetDropdown({ label = '' }: { label: string }) {
 
   return (<>
       <label htmlFor="presetDropdown">{label}</label>
-      <select name="presetTitle" defaultValue="" onChange={handleChange}>
+      <select id="presetDropdown" name="presetTitle" defaultValue="" onChange={handleChange}>
         <option></option>
         {Object.keys(presets).map(presetTitle => <option key={presetTitle} value={presetTitle}>{presetTitle}</option>)}
       </select>

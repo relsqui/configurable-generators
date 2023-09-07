@@ -1,6 +1,10 @@
 import { ConfigDropZone } from "../refactored/ConfigDropZone";
-import { TableConfig } from "../tableConfig";
+import { PresetDropdown } from "../refactored/PresetDropdown";
+import UploadButton from "../refactored/UploadButton";
 
-export default function Landing({ configLoadedCallback}: {configLoadedCallback: (config: TableConfig) => void}) {
-  return <ConfigDropZone configLoadedCallback={configLoadedCallback} />;
+export default function Landing() {
+  return <ConfigDropZone>
+    <UploadButton />
+    <PresetDropdown label="Or use a preset: " />
+  </ConfigDropZone>;
 }
