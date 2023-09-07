@@ -46,6 +46,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/md5": "^2.3.2",
+    "@types/request": "^2.48.8",
     "@types/webpack-env": "^1.18.1",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint-config-prettier": "^9.0.0",

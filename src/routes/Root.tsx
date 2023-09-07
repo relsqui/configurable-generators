@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
-import { GeneratorLayout } from '../Generator';
-import { ConfigDropZone } from '../ConfigDropZone';
 import { TableConfig } from '../tableConfig';
+import { Outlet } from 'react-router-dom';
 
 const defaultConfig: TableConfig = {
   schemaVersion: "0.1.0",
@@ -28,8 +27,8 @@ function Footer({ description, link }: { description: string | undefined, link: 
 function Root() {
   const configStorageLabel = 'generatorConfig';
   const { config: initialConfig, generator: initialGenerator } = storedConfigIfAvailable();
-  const [config, setConfig] = useState(initialConfig);
-  const [generator, setGenerator] = useState(initialGenerator);
+  const [config, ] = useState(initialConfig);
+  const [generator, ] = useState(initialGenerator);
 
   useEffect(() => {
     document.title = `${config.title} | Configurable Generators`;
@@ -51,23 +50,9 @@ function Root() {
     return returnConfig;
   }
 
-  function configLoadedCallback(config: TableConfig) {
-    setConfig(config);
-    setGenerator(Object.keys(config.generators)[0]);
-  }
-
-  function closeButtonCallback() {
-    setConfig(defaultConfig);
-    localStorage.removeItem(configStorageLabel);
-  }
-
   return (
     <div className="App">
-      {
-        config.isDefault ?
-          <ConfigDropZone configLoadedCallback={configLoadedCallback} /> :
-          <GeneratorLayout config={config} generator={generator} setGenerator={setGenerator} closeButtonCallback={closeButtonCallback} />
-      }
+      <Outlet />
       <Footer description={config.description} link={config.link} />
     </div>
   );
