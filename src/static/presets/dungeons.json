@@ -5,13 +5,13 @@
     "Passage": [
       "The <size> passage is <quality> and <quality>. The ground is <ground>.",
       "The hall continues <distance> this way before <passage-ending>.",
-      "This section has <quantity> <door-type> doors."
+      "This section has <plural-nonzero> <door-type> doors."
     ],
     "Room": [
       "This <quality> room is <size>. It seems to have been used for <room-purpose>.",
       "The walls are <walls> and the floor is <ground>.",
       "In the middle of the room is <room-feature>.",
-      "There are <quantity> exits, apart from how you came in."
+      "There are <plural> exits, apart from how you came in."
     ],
     "Random Encounter": [
       "<warning>. It's <encounter>!"
@@ -98,15 +98,23 @@
       "splitting into a Y intersection",
       "another passage joins it from the right",
       "another passage joins it from the left",
-      "being interrupted by a deep pit",
+      "being blocked by a fissure",
       "being blocked by a boulder",
       "continuing up a flight of stairs",
       "continuing down a flight of stairs"
     ],
-    "quantity": [
+    "plural-nonzero": [
+      "two",
+      "two",
+      "three",
+      "four",
+      "six"
+    ],
+    "plural": [
+      "no",
       "no",
       "two",
-      "four",
+      "three",
       "a dozen"
     ],
     "door-type": [
