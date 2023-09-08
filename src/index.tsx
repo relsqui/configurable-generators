@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Root from './routes/Root';
-import Preset, { loader as presetLoader } from './routes/Preset';
-import { loader as localLoader } from './routes/Local';
-import Landing from './routes/Landing';
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './routes/Root';
+import Landing from './routes/Landing';
+import { loader as localLoader } from './routes/Local';
+import Preset, { loader as presetLoader } from './routes/Preset';
+import Editor, { loader as editLoader } from './routes/Editor';
+import './index.css';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +26,11 @@ const router = createBrowserRouter([
         path: "local/:slug",
         element: <Preset />,
         loader: localLoader
+      },
+      {
+        path: "edit/:slug?",
+        element: <Editor />,
+        loader: editLoader
       }
     ]
   },
