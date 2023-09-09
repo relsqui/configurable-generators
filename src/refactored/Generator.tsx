@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
 import md5 from 'md5';
+import { useEffect, useState } from "react";
 import { TableConfig } from "../tableConfig";
 import dieIcon from '../static/icons/die.png';
+import { PresetDropdown } from './PresetDropdown';
+import { NavButton } from './NavButton';
+import { useNavigate } from 'react-router-dom';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 
@@ -19,19 +22,24 @@ function GeneratorButton({ generator, selected }: {
   generator: string,
   selected: boolean,
 }) {
-  const className = `generatorButton${selected ? ' selectedGenerator' : ''}`;
-  return <button className={className} key={generator}>{generator}</button>;
+  const className = `textButton${selected ? ' selectedTextButton' : ''}`;
+  return <li><button className={className} key={generator}>{generator}</button></li>;
 }
 
 export function GeneratorHeader({ generators, selectedGenerator }: {
   generators: string[],
   selectedGenerator: string,
 }) {
-  return <>{
+  const navigate = useNavigate();
+  return <nav><ul className='navigation'>
+    {
     generators.map((g) =>
       <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />
     )
-  }</>;
+  }
+      <li className="pushRight"><PresetDropdown /></li>&nbsp;
+      <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
+  </ul></nav>;
 }
 
 function RandomItem({ content, onClickRandomItem }: { content: TableSelection, onClickRandomItem: (tableKey: string) => void }) {
@@ -118,37 +126,18 @@ export function GeneratorLayout({ config, generator }: {
 
   function onClickRandomItem(generator: string, line: string, index: number, tableKey: string) {
     const newTextTree: TextTree = {};
-    for (const g of Object.keys(textTree)) {
-      if (g !== generator) {
-        newTextTree[g] = textTree[g];
-      } else {
-        newTextTree[generator] = {};
-        for (const l of Object.keys(textTree[generator])) {
-          if (l !== line) {
-            newTextTree[generator][l] = textTree[generator][l];
-          } else {
-            newTextTree[generator][line] = [];
-            for (let i = 0; i < textTree[generator][line].length; i++) {
-              if (i !== index) {
-                newTextTree[generator][line].push(textTree[generator][line][i]);
-              } else {
-                newTextTree[generator][line].push({ text: tableChoice(tableKey), tableKey });
-              }
-            }
-          }
-        }
-      }
-    }
+    Object.assign(newTextTree, textTree);
+    newTextTree[generator][line][index] = { text: tableChoice(tableKey), tableKey };
     setTextTree(newTextTree);
   }
 
   return (
     <>
-      <header>
-        <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
-      </header>
-      <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
-      <RerollButton onReroll={() => setTextTree(buildTextTree())} />
+      <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
+      <div className="generatorContent">
+        <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
+        <RerollButton onReroll={() => setTextTree(buildTextTree())} />
+      </div>
     </>
   );
 }

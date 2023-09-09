@@ -11,7 +11,7 @@ export function PresetDropdown({ label = '' }: { label?: string }) {
     const presetTitle = event.target.value;
     if (presetTitle) {
       const slug = titleToSlug(presetTitle as string);
-      navigate(`p/${slug}`);
+      navigate(`/p/${slug}`);
     }
   }
 

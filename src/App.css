@@ -10,6 +10,7 @@
 body {
   background-color: var(--dark-gray);
   color: var(--light-gray);
+  height: 100vh;
 }
 
 a {
@@ -25,6 +26,14 @@ a:visited {
   color: var(--dark-blue);
 }
 
+ul {
+  display: flex;
+}
+
+li {
+  list-style: none;
+}
+
 button,
 select {
   font-size: inherit;
@@ -36,25 +45,53 @@ select {
   cursor: pointer;
 }
 
-header {
-  font-size: calc(10px + 1vmin);
+.textButton {
+  border-radius: 0;
+  background: transparent;
+  color: var(--light-gray);
 }
 
-footer {
-  width: 100vw;
-  font-size: calc(15px + 0.5vmin);
+.selectedTextButton {
+  cursor: default;
+  border-bottom: medium var(--light-gray) dotted;
 }
 
-.iconCredit {
-  color: var(--medium-gray);
+.floatRight {
+  float: right;
 }
 
 .App {
   font-size: calc(5px + 1vmin);
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100vh;
 }
 
-.content {
+.navigation {
+  font-size: calc(10px + 0.8vmin);
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+}
+
+.pushRight {
+  margin-left: auto;
+}
+
+footer {
+  font-size: calc(15px + 0.5vmin);
+}
+
+.generatorContent {
+  display: flex;
   height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .ConfigDropZone {
@@ -80,22 +117,7 @@ footer {
 }
 
 .generatorLine {
-  font-size: calc(10px + 3vmin);
-  min-width: 100%;
-}
-
-.selectedGenerator {
-  cursor: default;
-  border-bottom: medium var(--light-gray) dotted;
-}
-
-header button {
-  background-color: var(--dark-gray);
-  color: var(--light-gray);
-}
-
-.generatorButton {
-  border-radius: 0;
+  font-size: calc(10px + 2vmin);
 }
 
 .reroll {
