@@ -21,8 +21,7 @@ export default function UploadButton() {
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
   return <p>
-    {/* I have no idea why this nbsp is necessary but nothing else worked. */}
-    Drag config file here or&nbsp;<button onClick={() => fileInput.current?.click()}>select file</button>.
+    Drag a config file here or <button onClick={() => fileInput.current?.click()}>select file</button>.
     <input
       ref={fileInput}
       className="fileInput"

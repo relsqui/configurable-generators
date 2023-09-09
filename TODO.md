@@ -1,6 +1,6 @@
 currently:
 - fixing things I broke working on routing and layout
-  - drag and drop
+  - drag and drop styling/errors
   - generator selection
   - stale configs when switching presets (again)
 next:
