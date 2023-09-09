@@ -37,51 +37,33 @@ select {
 }
 
 header {
-  display: block;
-  position: absolute;
-  top: 0px;
   font-size: calc(10px + 1vmin);
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
   width: 100vw;
   font-size: calc(15px + 0.5vmin);
 }
 
-.configDescription {
-  float: left;
-  clear: none;
-  margin: 10px;
-}
-
 .iconCredit {
-  float: right;
-  clear: none;
-  margin: 10px;
   color: var(--medium-gray);
 }
 
 .App {
-  min-height: 100vh;
-  margin: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(5px + 1vmin);
 }
 
+.content {
+  height: 100%;
+}
+
 .ConfigDropZone {
-  display: flex;
   height: 70vh;
   width: 80vw;
   margin: 20px;
   padding: 5vmin;
   border: calc(5px + 1vmin) var(--light-gray) dashed;
   justify-content: center;
-  align-items: center;
   font-size: calc(15px + 1.5vmin);
 }
 
@@ -98,8 +80,6 @@ footer {
 }
 
 .generatorLine {
-  align-items: center;
-  white-space: break-spaces;
   font-size: calc(10px + 3vmin);
   min-width: 100%;
 }
@@ -119,25 +99,13 @@ header button {
 }
 
 .reroll {
-  display: flex;
-  margin-top: calc(2vmin);
   background: transparent;
   border: none;
   padding: 1px;
-  align-items: center;
-  justify-content: center;
-}
-
-.closeButton {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 0;
 }
 
 randomItem {
   background-color: var(--light-gray);
   color: var(--dark-gray);
   cursor: pointer;
-  margin: 2px;
 }
