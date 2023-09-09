@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { titleToSlug } from './presets';
 import { presets } from './presets';
 
-export function PresetDropdown({ label = '' }: { label: string }) {
+export function PresetDropdown({ label = '' }: { label?: string }) {
   const navigate = useNavigate();
 
   function handleChange(event: any) {

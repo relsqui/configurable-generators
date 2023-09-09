@@ -1,5 +1,17 @@
 import '../App.css';
 import { Outlet } from 'react-router-dom';
+import { PresetDropdown } from '../refactored/PresetDropdown';
+
+
+function Header() {
+  return <header className="navigation">
+    <PresetDropdown />
+    <button>Upload</button>
+    <button>Create</button>
+    <button>Download</button>
+    <button>Preview/Edit</button>
+  </header>
+}
 
 function Footer() {
   const description = "What is this?";
@@ -18,7 +30,10 @@ function Root() {
   // to do: get the footer data from the loaded config if applicable
   return (
     <div className="App">
-      <Outlet />
+      <Header />
+      <div className="content">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
