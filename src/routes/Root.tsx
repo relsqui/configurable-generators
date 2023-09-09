@@ -1,11 +1,14 @@
 import '../App.css';
 import { Outlet } from 'react-router-dom';
+import { ConfigDropZone } from '../refactored/ConfigDropZone';
 
 function Root() {
   return (
-    <div className="App">
-      <Outlet />
-    </div>
+    <ConfigDropZone>
+      <div className="App">
+        <Outlet />
+      </div>
+    </ConfigDropZone>
   );
 }
 

@@ -1,11 +1,9 @@
 currently:
-- cleaning up css
-  - fix footer
-  - fix landing page
+- fixing things I broke working on routing and layout
+  - drag and drop
+  - generator selection
+  - stale configs when switching presets (again)
 next:
-- fix generator selection
-- fix stale configs when switching presets (again)
-- get description back in footer, maybe with https://reactrouter.com/en/main/hooks/use-matches ? (or the outlet context)
 - add a config editor
   - use Local's loader to get a local config from a slug
 - timestamp cached configs and expire them with inactivity -- and/or replace w/same title?

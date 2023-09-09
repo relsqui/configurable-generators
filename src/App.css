@@ -70,6 +70,16 @@ select {
   height: 100vh;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(15px + 1.5vmin);
+}
+
 .navigation {
   font-size: calc(10px + 0.8vmin);
   align-items: baseline;
@@ -94,14 +104,8 @@ footer {
   align-items: center;
 }
 
-.ConfigDropZone {
-  height: 70vh;
-  width: 80vw;
-  margin: 20px;
-  padding: 5vmin;
-  border: calc(5px + 1vmin) var(--light-gray) dashed;
-  justify-content: center;
-  font-size: calc(15px + 1.5vmin);
+.configDropZone {
+  display: flex;
 }
 
 .dropZoneDragged {
