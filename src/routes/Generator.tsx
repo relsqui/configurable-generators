@@ -114,12 +114,12 @@ export function GeneratorLayout() {
     return table[Math.floor(Math.random() * table.length)];
   }
 
-  function buildTextTree() {
-    const textTree: TextTree = {};
-    for (const generator of Object.keys(config.generators)) {
-      textTree[generator] = {};
+  function buildTextTree(generators: string[] = Object.keys(config.generators), base: TextTree = {}) {
+    const newTree: TextTree = {...base};
+    for (const generator of generators) {
+      newTree[generator] = {};
       for (const line of config.generators[generator]) {
-        textTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
+        newTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
           if (pointyBracketsRe.test(segment)) {
             const tableKey = segment.slice(1, -1);
             // check for pins here, later
@@ -129,7 +129,7 @@ export function GeneratorLayout() {
         });
       }
     }
-    return textTree;
+    return newTree;
   }
 
   function onClickRandomItem(generator: string, line: string, index: number, tableKey: string) {
@@ -144,7 +144,7 @@ export function GeneratorLayout() {
       <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
       <div className="generatorContent">
         <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
-        <button className='reroll' onClick={() => setTextTree(buildTextTree())}>
+        <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
           <img src={dieIcon} alt="Reroll" />
         </button>
       </div>
