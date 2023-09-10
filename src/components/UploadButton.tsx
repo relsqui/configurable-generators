@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { TableConfig } from '../tableConfig';
-import { titleToSlug } from './presets';
+import { titleToSlug } from '../presets';
 
 export function loadConfig(navigate: NavigateFunction, file: File | null) {
   if (file?.type !== 'application/json') throw new Error('JSON files only, please.');

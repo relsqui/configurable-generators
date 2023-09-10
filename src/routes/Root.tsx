@@ -1,6 +1,6 @@
 import '../App.css';
 import { Outlet } from 'react-router-dom';
-import { ConfigDropZone } from '../refactored/ConfigDropZone';
+import { ConfigDropZone } from '../components/ConfigDropZone';
 
 function Root() {
   return (

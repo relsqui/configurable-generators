@@ -1,5 +1,5 @@
-import { PresetDropdown } from "../refactored/PresetDropdown";
-import UploadButton from "../refactored/UploadButton";
+import { PresetDropdown } from "../components/PresetDropdown";
+import UploadButton from "../components/UploadButton";
 
 export default function Landing() {
   return <div className="landing">

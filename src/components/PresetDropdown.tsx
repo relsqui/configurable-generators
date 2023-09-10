@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { titleToSlug } from './presets';
-import { presets } from './presets';
+import { titleToSlug } from '../presets';
+import { presets } from '../presets';
 
 export function PresetDropdown({ label, selected = '' }: { label?: string, selected?: string }) {
   const navigate = useNavigate();

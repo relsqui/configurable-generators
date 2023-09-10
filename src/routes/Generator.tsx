@@ -2,10 +2,10 @@ import md5 from 'md5';
 import { useEffect, useState } from "react";
 import { TableConfig } from "../tableConfig";
 import dieIcon from '../static/icons/die.png';
-import { PresetDropdown } from '../refactored/PresetDropdown';
-import { NavButton } from '../refactored/NavButton';
+import { PresetDropdown } from '../components/PresetDropdown';
+import { NavButton } from '../components/NavButton';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { presetsBySlug, titleToSlug } from '../refactored/presets';
+import { presetsBySlug, titleToSlug } from '../presets';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 

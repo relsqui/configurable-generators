@@ -1,8 +1,8 @@
-import { TableConfig } from "../tableConfig";
+import { TableConfig } from './tableConfig';
 
 export const presets: { [key: string]: TableConfig } = {};
 export const presetsBySlug: { [key: string]: TableConfig } = {};
-const requirePresets = require.context('../static/presets/', true, /\.json$/);
+const requirePresets = require.context('./static/presets/', true, /\.json$/);
 
 export function titleToSlug(title: string) {
   return encodeURIComponent(title.toLowerCase().replaceAll(' ', '-'));
