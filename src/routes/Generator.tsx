@@ -83,14 +83,6 @@ function Generator({ content, onClickRandomItem }: {
   );
 }
 
-function RerollButton({ onReroll }: { onReroll: () => void }) {
-  return (
-    <button className='reroll' onClick={onReroll}>
-      <img src={dieIcon} alt="Reroll" />
-    </button>
-  );
-}
-
 export function GeneratorLayout() {
   const { config } = useLoaderData() as { config: TableConfig };
   const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
@@ -152,7 +144,9 @@ export function GeneratorLayout() {
       <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
       <div className="generatorContent">
         <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
-        <RerollButton onReroll={() => setTextTree(buildTextTree())} />
+        <button className='reroll' onClick={() => setTextTree(buildTextTree())}>
+          <img src={dieIcon} alt="Reroll" />
+        </button>
       </div>
       <footer>
         {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
