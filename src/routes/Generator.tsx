@@ -2,10 +2,10 @@ import md5 from 'md5';
 import { useEffect, useState } from "react";
 import { TableConfig } from "../tableConfig";
 import dieIcon from '../static/icons/die.png';
-import { PresetDropdown } from './PresetDropdown';
-import { NavButton } from './NavButton';
-import { useNavigate } from 'react-router-dom';
-import { titleToSlug } from './presets';
+import { PresetDropdown } from '../refactored/PresetDropdown';
+import { NavButton } from '../refactored/NavButton';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { presetsBySlug, titleToSlug } from '../refactored/presets';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 
@@ -17,6 +17,12 @@ type TextTree = {
   [key: string]: {
     [key: string]: Segment[]
   }
+}
+
+export const loader = async ({ params }: any) => {
+  const config = presetsBySlug[params.slug] as TableConfig;
+  if (!config) throw Error(`Slug ${params.slug} not found.`);
+  return { config };
 }
 
 function GeneratorButton({ generator, selected }: {
@@ -85,7 +91,8 @@ function RerollButton({ onReroll }: { onReroll: () => void }) {
   );
 }
 
-export function GeneratorLayout({ config }: { config: TableConfig }) {
+export function GeneratorLayout() {
+  const { config } = useLoaderData() as { config: TableConfig };
   const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
   const [textTree, setTextTree] = useState(storedTreeIfAvailable());
 
@@ -147,6 +154,9 @@ export function GeneratorLayout({ config }: { config: TableConfig }) {
         <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
         <RerollButton onReroll={() => setTextTree(buildTextTree())} />
       </div>
+      <footer>
+        {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
+      </footer>
     </>
   );
 }

@@ -4,8 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root';
 import Landing from './routes/Landing';
 import { loader as localLoader } from './routes/Local';
-import Preset, { loader as presetLoader } from './routes/Preset';
-import Editor, { loader as editLoader } from './routes/Editor';
+import Editor, { loader as editorLoader } from './routes/Editor';
+import { GeneratorLayout, loader as generatorLoader } from './routes/Generator';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -19,18 +19,18 @@ const router = createBrowserRouter([
       },
       {
         path: "p/:slug",
-        element: <Preset />,
-        loader: presetLoader,
+        element: <GeneratorLayout />,
+        loader: generatorLoader,
       },
       {
         path: "local/:slug",
-        element: <Preset />,
+        element: <GeneratorLayout />,
         loader: localLoader
       },
       {
         path: "edit/:slug?",
         element: <Editor />,
-        loader: editLoader
+        loader: editorLoader
       }
     ]
   },

@@ -113,14 +113,6 @@ footer {
   justify-content: center;
 }
 
-/* .dropZoneDragged {
-  background: var(--dark-blue);
-}
-
-.dropZoneError {
-  background: var(--medium-red);
-} */
-
 .fileInput {
   display: none;
 }
