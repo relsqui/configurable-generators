@@ -26,9 +26,10 @@ function GeneratorButton({ generator, selected }: {
   return <li><button className={className} key={generator}>{generator}</button></li>;
 }
 
-export function GeneratorHeader({ generators, selectedGenerator }: {
+export function GeneratorHeader({ generators, selectedGenerator, title }: {
   generators: string[],
   selectedGenerator: string,
+  title: string
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
@@ -37,7 +38,7 @@ export function GeneratorHeader({ generators, selectedGenerator }: {
       <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />
     )
   }
-      <li className="pushRight"><PresetDropdown /></li>&nbsp;
+      <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
       <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
 }
@@ -134,7 +135,7 @@ export function GeneratorLayout({ config, generator }: {
 
   return (
     <>
-      <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
+      <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
       <div className="generatorContent">
         <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
         <RerollButton onReroll={() => setTextTree(buildTextTree())} />

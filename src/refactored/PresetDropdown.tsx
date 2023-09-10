@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { titleToSlug } from './presets';
 import { presets } from './presets';
 
-export function PresetDropdown({ label = '' }: { label?: string }) {
+export function PresetDropdown({ label, selected = '' }: { label?: string, selected?: string }) {
   const navigate = useNavigate();
 
   function handleChange(event: any) {
@@ -15,11 +15,14 @@ export function PresetDropdown({ label = '' }: { label?: string }) {
     }
   }
 
-  return (<>
-    <label htmlFor="presetDropdown">{label}</label>
-    <select id="presetDropdown" name="presetTitle" defaultValue="" onChange={handleChange}>
-      <option></option>
-      {Object.keys(presets).map(presetTitle => <option key={presetTitle} value={presetTitle}>{presetTitle}</option>)}
-    </select>
-  </>);
+  // if the current selected config isn't in the preset list,
+  // we're looking at a local file -- don't list the presets
+  return selected.length && !presets[selected] ? <></> :
+    <>
+      <label htmlFor="presetDropdown">{label}</label>
+      <select id="presetDropdown" name="presetTitle" defaultValue={selected} onChange={handleChange}>
+        <option></option>
+        {Object.keys(presets).map(presetTitle => <option key={presetTitle} value={presetTitle}>{presetTitle}</option>)}
+      </select>
+    </>
 }
