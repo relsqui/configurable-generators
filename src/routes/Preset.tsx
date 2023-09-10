@@ -11,9 +11,8 @@ export const loader = async ({ params }: any) => {
 
 export default function Preset() {
   const { config } = useLoaderData() as { config: TableConfig };
-  const generator = Object.keys(config.generators)[0];
   return <>
-    <GeneratorLayout config={config} generator={generator} />
+    <GeneratorLayout config={config} />
     <footer>
       {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
     </footer>

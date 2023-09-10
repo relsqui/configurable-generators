@@ -5,6 +5,7 @@ import dieIcon from '../static/icons/die.png';
 import { PresetDropdown } from './PresetDropdown';
 import { NavButton } from './NavButton';
 import { useNavigate } from 'react-router-dom';
+import { titleToSlug } from './presets';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 
@@ -22,8 +23,12 @@ function GeneratorButton({ generator, selected }: {
   generator: string,
   selected: boolean,
 }) {
+  const navigate = useNavigate();
   const classNames = selected ? ['selectedTextButton'] : [];
-  return <NavButton classNames={classNames} key={generator}>{generator}</NavButton>;
+  const buttonProps = {
+    onClick: () => navigate(`#${titleToSlug(generator)}`)
+  }
+  return <NavButton classNames={classNames} key={generator} buttonProps={buttonProps}>{generator}</NavButton>;
 }
 
 export function GeneratorHeader({ generators, selectedGenerator, title }: {
@@ -33,7 +38,7 @@ export function GeneratorHeader({ generators, selectedGenerator, title }: {
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
-    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />) }
+    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
     <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
     <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
@@ -80,16 +85,22 @@ function RerollButton({ onReroll }: { onReroll: () => void }) {
   );
 }
 
-export function GeneratorLayout({ config, generator }: {
-  config: TableConfig,
-  generator: string,
-}) {
+export function GeneratorLayout({ config }: { config: TableConfig }) {
   const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
   const [textTree, setTextTree] = useState(storedTreeIfAvailable());
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
   }, [textTree, textTreeStorageLabel]);
+
+  let generator = Object.keys(config.generators)[0];
+  if (window.location.hash) {
+    for (const title of Object.keys(config.generators)) {
+      if (window.location.hash === `#${titleToSlug(title)}`) {
+        generator = title;
+      }
+    }
+  }
 
   function storedTreeIfAvailable() {
     const storedConfig = localStorage.getItem(textTreeStorageLabel);

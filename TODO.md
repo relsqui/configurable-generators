@@ -1,6 +1,5 @@
 currently:
 - fixing things I broke working on routing and layout
-  - generator selection
   - stale configs when switching presets (again)
 next:
 - add a config editor
