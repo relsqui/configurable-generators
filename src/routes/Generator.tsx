@@ -44,7 +44,7 @@ export function GeneratorHeader({ generators, selectedGenerator, title }: {
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
-    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
+    {generators.length < 2 ? '' : generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
     <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
     <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
