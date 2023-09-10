@@ -22,8 +22,8 @@ function GeneratorButton({ generator, selected }: {
   generator: string,
   selected: boolean,
 }) {
-  const className = `textButton${selected ? ' selectedTextButton' : ''}`;
-  return <li><button className={className} key={generator}>{generator}</button></li>;
+  const classNames = selected ? ['selectedTextButton'] : [];
+  return <NavButton classNames={classNames} key={generator}>{generator}</NavButton>;
 }
 
 export function GeneratorHeader({ generators, selectedGenerator, title }: {
@@ -33,13 +33,9 @@ export function GeneratorHeader({ generators, selectedGenerator, title }: {
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
-    {
-    generators.map((g) =>
-      <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />
-    )
-  }
-      <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
-      <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
+    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />) }
+    <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
+    <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
 }
 
