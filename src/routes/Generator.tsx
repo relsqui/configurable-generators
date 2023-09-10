@@ -86,25 +86,34 @@ function Generator({ content, onClickRandomItem }: {
 export function GeneratorLayout() {
   const { config } = useLoaderData() as { config: TableConfig };
   const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
-  const [textTree, setTextTree] = useState(storedTreeIfAvailable());
+  const [lastStorageLabel, setLastStorageLabel] = useState(textTreeStorageLabel);
+  const [textTree, setTextTree] = useState(storedTreeIfAvailable);
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
   }, [textTree, textTreeStorageLabel]);
+
+  if (textTreeStorageLabel !== lastStorageLabel) {
+    // new label = config hash has changed = config has changed
+    // so don't trust text tree state, reinitialize it
+    setTextTree(storedTreeIfAvailable());
+    setLastStorageLabel(textTreeStorageLabel);
+  }
 
   let generator = Object.keys(config.generators)[0];
   if (window.location.hash) {
     for (const title of Object.keys(config.generators)) {
       if (window.location.hash === `#${titleToSlug(title)}`) {
         generator = title;
+        break;
       }
     }
   }
 
   function storedTreeIfAvailable() {
-    const storedConfig = localStorage.getItem(textTreeStorageLabel);
-    if (storedConfig) {
-      return JSON.parse(storedConfig);
+    const storedTree = localStorage.getItem(textTreeStorageLabel);
+    if (storedTree) {
+      return JSON.parse(storedTree);
     }
     return buildTextTree();
   }
@@ -115,7 +124,7 @@ export function GeneratorLayout() {
   }
 
   function buildTextTree(generators: string[] = Object.keys(config.generators), base: TextTree = {}) {
-    const newTree: TextTree = {...base};
+    const newTree: TextTree = { ...base };
     for (const generator of generators) {
       newTree[generator] = {};
       for (const line of config.generators[generator]) {
