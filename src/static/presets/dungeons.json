@@ -33,7 +33,6 @@
       "grand",
       "towering",
       "claustrophobic",
-      "comfortable",
       "spacious",
       "squat",
       "cavernous",
@@ -98,10 +97,10 @@
       "splitting into a Y intersection",
       "another passage joins it from the right",
       "another passage joins it from the left",
-      "being blocked by a fissure",
+      "being cut off by a fissure",
       "being blocked by a boulder",
-      "continuing up a flight of stairs",
-      "continuing down a flight of stairs"
+      "ascending a flight of stairs",
+      "descending a flight of stairs"
     ],
     "plural-nonzero": [
       "two",

@@ -82,6 +82,7 @@ function RerollButton({ onReroll }: { onReroll: () => void }) {
     </button>
   );
 }
+
 export function GeneratorLayout({ config, generator }: {
   config: TableConfig,
   generator: string,
