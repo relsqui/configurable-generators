@@ -18,17 +18,17 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "/p/:slug",
+        path: "p/:slug",
         element: <GeneratorLayout />,
         loader: generatorLoader,
       },
       {
-        path: "/local/:slug",
+        path: "local/:slug",
         element: <GeneratorLayout />,
         loader: localLoader
       },
       {
-        path: "/edit/:slug?",
+        path: "edit/:slug?",
         element: <Editor />,
         loader: editorLoader
       }
