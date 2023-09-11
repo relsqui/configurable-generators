@@ -6,7 +6,7 @@ import Landing from './routes/Landing';
 import { loader as localLoader } from './routes/Local';
 import Editor, { loader as editorLoader } from './routes/Editor';
 import { GeneratorLayout, loader as generatorLoader } from './routes/Generator';
-import './/index.css';
+import './index.css';
 
 const router = createBrowserRouter([
   {
