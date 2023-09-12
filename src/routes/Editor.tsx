@@ -45,11 +45,19 @@ const defaultConfig: TableConfig = {
   }
 }
 
+function storedConfigIfAvailable(configStorageLabel: string) {
+  const storedConfig = localStorage.getItem(configStorageLabel);
+  if (storedConfig) {
+    return JSON.parse(storedConfig);
+  }
+  return defaultConfig;
+}
+
 export default function Editor() {
-  const [config, setConfig] = useState(defaultConfig);
+  const configStorageLabel = "editingConfig";
+  const [config, setConfig] = useState(storedConfigIfAvailable(configStorageLabel));
   const generator = matchSlug(Object.keys(config.generators), Object.keys(config.generators)[0]);
   const [editPaneContent, setEditPaneContent] = useState(config.generators[generator].join('\n'));
-  const configStorageLabel = "editingConfig";
 
   useEffect(() => {
     localStorage.setItem(configStorageLabel, JSON.stringify(config));

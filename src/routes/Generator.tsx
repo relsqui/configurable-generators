@@ -79,14 +79,14 @@ function tableChoice(table: string[]) {
 
 function buildTextTree(generators: StringListMap, tables: StringListMap, base: TextTree = {}, generatorFilter: string[] = []) {
   const newTree: TextTree = { ...base };
-  for (const generator of (generatorFilter || Object.keys(generators))) {
+  for (const generator of (generatorFilter.length ? generatorFilter : Object.keys(generators))) {
     newTree[generator] = {};
     for (const line of generators[generator]) {
       newTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
         if (pointyBracketsRe.test(segment)) {
           const tableKey = segment.slice(1, -1);
-          // check for pins here, later
-          return { text: tableChoice(tables[tableKey]) || segment, tableKey } as Segment;
+          // table might not exist yet if we're in the editor
+          return { text: tables[tableKey] ? tableChoice(tables[tableKey]) : segment, tableKey } as Segment;
         }
         return { text: segment } as Segment;
       });
@@ -114,7 +114,7 @@ export function Generator({ config, generator, textTreeStorageLabel }: { config:
   let content = textTree[generator];
   const configHash = md5(JSON.stringify(config));
   if (configHash !== lastConfigHash) {
-    const newTree = storedTreeIfAvailable(config, textTreeStorageLabel);
+    const newTree = buildTextTree(config.generators, config.tables);
     setTextTree(newTree);
     setLastConfigHash(configHash);
     // update this synchronously so it works on the current render

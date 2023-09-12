@@ -1,5 +1,14 @@
-- add a config editor
-- timestamp cached configs and expire them with inactivity -- and/or replace w/same title?
+currently:
+- adding a config editor
+  - fix generator navigation
+  - add table editing
+  - implement save and upload
+  - automatically add tables when they're referenced in the editor
+    - then remove the handling of that case in buildTextTree
+next:
+- error handling
 - prevent re-randomizing to the same item
+- customize colors (in the config maybe?)
+- timestamp cached configs and expire them with inactivity -- and/or replace w/same title?
 - pins for individual random items
 - undo button for individual random items
