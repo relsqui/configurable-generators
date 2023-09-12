@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import { useEffect, useState } from "react";
-import { TableConfig } from "../tableConfig";
+import { StringListMap, TableConfig } from "../tableConfig";
 import dieIcon from '../static/icons/die.png';
 import { PresetDropdown } from '../components/PresetDropdown';
 import { NavButton } from '../components/NavButton';
@@ -73,56 +73,57 @@ function GeneratorLine({ content, onClickRandomItem }: {
   </p>;
 }
 
+function tableChoice(table: string[]) {
+  return table[Math.floor(Math.random() * table.length)];
+}
+
+function buildTextTree(generators: StringListMap, tables: StringListMap, base: TextTree = {}, generatorFilter: string[] = []) {
+  const newTree: TextTree = { ...base };
+  for (const generator of (generatorFilter || Object.keys(generators))) {
+    newTree[generator] = {};
+    for (const line of generators[generator]) {
+      newTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
+        if (pointyBracketsRe.test(segment)) {
+          const tableKey = segment.slice(1, -1);
+          // check for pins here, later
+          return { text: tableChoice(tables[tableKey]) || segment, tableKey } as Segment;
+        }
+        return { text: segment } as Segment;
+      });
+    }
+  }
+  return newTree;
+}
+
+function storedTreeIfAvailable(config: TableConfig, textTreeStorageLabel: string) {
+  const storedTree = localStorage.getItem(textTreeStorageLabel);
+  if (storedTree) {
+    return JSON.parse(storedTree);
+  }
+  return buildTextTree(config.generators, config.tables, {});
+}
+
 export function Generator({ config, generator, textTreeStorageLabel }: { config: TableConfig, generator: string, textTreeStorageLabel: string }) {
-  const [lastStorageLabel, setLastStorageLabel] = useState(textTreeStorageLabel);
-  const [textTree, setTextTree] = useState(storedTreeIfAvailable);
-  const content = textTree[generator]
+  const [textTree, setTextTree] = useState(() => storedTreeIfAvailable(config, textTreeStorageLabel));
+  const [lastConfigHash, setLastConfigHash] = useState(() => md5(JSON.stringify(config)));
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
   }, [textTree, textTreeStorageLabel]);
 
-  if (textTreeStorageLabel !== lastStorageLabel) {
-    // new label = config hash has changed = config has changed
-    // so don't trust text tree state, reinitialize it
-    setTextTree(storedTreeIfAvailable());
-    setLastStorageLabel(textTreeStorageLabel);
-  }
-
-  function storedTreeIfAvailable() {
-    const storedTree = localStorage.getItem(textTreeStorageLabel);
-    if (storedTree) {
-      return JSON.parse(storedTree);
-    }
-    return buildTextTree();
-  }
-
-  function tableChoice(tableKey: string) {
-    const table = config.tables[tableKey];
-    return table[Math.floor(Math.random() * table.length)];
-  }
-
-  function buildTextTree(generators: string[] = Object.keys(config.generators), base: TextTree = {}) {
-    const newTree: TextTree = { ...base };
-    for (const generator of generators) {
-      newTree[generator] = {};
-      for (const line of config.generators[generator]) {
-        newTree[generator][line] = line.split(pointyBracketsRe).map((segment) => {
-          if (pointyBracketsRe.test(segment)) {
-            const tableKey = segment.slice(1, -1);
-            // check for pins here, later
-            return { text: tableChoice(tableKey) || segment, tableKey } as Segment;
-          }
-          return { text: segment } as Segment;
-        });
-      }
-    }
-    return newTree;
+  let content = textTree[generator];
+  const configHash = md5(JSON.stringify(config));
+  if (configHash !== lastConfigHash) {
+    const newTree = storedTreeIfAvailable(config, textTreeStorageLabel);
+    setTextTree(newTree);
+    setLastConfigHash(configHash);
+    // update this synchronously so it works on the current render
+    content = newTree[generator];
   }
 
   function onClickRandomItem(generator: string, line: string, index: number, tableKey: string) {
     const newTextTree: TextTree = { ...textTree };
-    newTextTree[generator][line][index] = { text: tableChoice(tableKey), tableKey };
+    newTextTree[generator][line][index] = { text: tableChoice(config.tables[tableKey]), tableKey };
     setTextTree(newTextTree);
   }
 
@@ -130,7 +131,7 @@ export function Generator({ config, generator, textTreeStorageLabel }: { config:
     <div>
       {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(generator, line, index, tableKey)} />)}
     </div>
-    <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
+    <button className='reroll' onClick={() => setTextTree(buildTextTree(config.generators, config.tables, textTree, [generator]))}>
       <img src={dieIcon} alt="Reroll" />
     </button>
   </>;
