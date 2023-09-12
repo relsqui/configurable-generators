@@ -153,12 +153,29 @@ randomItem {
 .editorContent {
   display: flex;
   height: 100%;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 10px;
   margin: 30px;
   font-size: calc(10px + 1.5vmin);
+}
+
+.editorGenerator {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
+  flex-basis: 600px;
+  gap: 10px;
+}
+
+.editorTable {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-basis: 200px;
+  gap: 10px;
 }
 
 .editorTitle {
@@ -168,12 +185,15 @@ randomItem {
   gap: 10px;
 }
 
-.editPane,
-.editGeneratorTitle {
+.editorItem {
   cursor: text;
   flex-shrink: 0;
   flex-grow: 1;
   resize: none;
+}
+
+.editorTableSelect {
+  flex-grow: 0;
 }
 
 .editorPreview {

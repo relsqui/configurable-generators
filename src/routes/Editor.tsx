@@ -113,13 +113,21 @@ export default function Editor() {
   return <>
     <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} addGenerator={addGenerator} />
     <div className="editorContent">
-      <div className="editorTitle">
-        <input className="editGeneratorTitle" name="generatorName" value={generator} onChange={renameGenerator} />
-        {Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
+      <div className="editorGenerator">
+        <div className="editorTitle">
+          <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
+          {Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
+        </div>
+        <textarea className="editorItem" onChange={updateEditPane} value={editPaneContent} />
+        <div className="editorPreview">
+          <Generator config={config} generator={generator} textTreeStorageLabel="editingTextTree" />
+        </div>
       </div>
-      <textarea className="editPane" onChange={updateEditPane} value={editPaneContent} />
-      <div className="editorPreview">
-        <Generator config={config} generator={generator} textTreeStorageLabel="editingTextTree" />
+      <div className="editorTable">
+          <select className="editorItem editorTableSelect">
+            <option>table</option>
+          </select>
+          <textarea className="editorItem"></textarea>
       </div>
     </div>
   </>;

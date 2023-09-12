@@ -3,6 +3,7 @@ currently:
   - add table editing
     - and deletion
   - implement save and upload
+  - reorder generators
   - automatically add tables when they're referenced in the editor
     - then remove the handling of that case in buildTextTree
   - confirm before deleting things
