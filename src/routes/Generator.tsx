@@ -26,7 +26,7 @@ export const loader = async ({ params }: any) => {
   return { config };
 }
 
-function GeneratorButton({ generator, selected }: {
+export function GeneratorButton({ generator, selected }: {
   generator: string,
   selected: boolean,
 }) {

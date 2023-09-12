@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { TableConfig } from "../tableConfig";
-import { titleToSlug } from "../presets";
 import { NavButton } from "../components/NavButton";
 import { matchSlug } from '../matchSlug';
-import { Generator } from './Generator';
-
-function GeneratorButton({ generator, selected }: {
-  generator: string,
-  selected: boolean,
-}) {
-  const navigate = useNavigate();
-  const classNames = selected ? ['selectedTextButton'] : [];
-  const buttonProps = {
-    onClick: () => navigate(`#${titleToSlug(generator)}`)
-  }
-  return <NavButton classNames={classNames} key={generator} buttonProps={buttonProps}>{generator}</NavButton>;
-}
+import { Generator, GeneratorButton } from './Generator';
 
 export function EditorHeader({ generators, selectedGenerator }: {
   generators: string[],
