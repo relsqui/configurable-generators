@@ -20,8 +20,8 @@ export function loadConfig(navigate: NavigateFunction, file: File | null) {
 export default function UploadButton() {
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
-  return <p>
-    Drag a config file here or <button onClick={() => fileInput.current?.click()}>select file</button>.
+  return <div className="uploadButton">
+    Drag a config file here or <button onClick={() => fileInput.current?.click()}>upload file</button>
     <input
       ref={fileInput}
       className="fileInput"
@@ -29,6 +29,6 @@ export default function UploadButton() {
       accept="application/json"
       onChange={(event) => loadConfig(navigate, (event.target.files || [])[0])}
     />
-  </p>;
+  </div>;
 }
 

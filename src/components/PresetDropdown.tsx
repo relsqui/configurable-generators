@@ -17,6 +17,7 @@ export function PresetDropdown({ label, selected = '' }: { label?: string, selec
 
   // if the current selected config isn't in the preset list,
   // we're looking at a local file -- don't list the presets
+  // (this is a hacky place for this logic but we're going with it for now)
   return selected.length && !presets[selected] ? <></> :
     <>
       <label htmlFor="presetDropdown">{label}</label>
