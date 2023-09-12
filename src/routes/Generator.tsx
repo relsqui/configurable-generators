@@ -6,6 +6,7 @@ import { PresetDropdown } from '../components/PresetDropdown';
 import { NavButton } from '../components/NavButton';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { presetsBySlug, titleToSlug } from '../presets';
+import { matchSlug } from '../matchSlug';
 
 const pointyBracketsRe = /(<[^>]*>)/;
 
@@ -72,22 +73,10 @@ function GeneratorLine({ content, onClickRandomItem }: {
   </p>;
 }
 
-function Generator({ content, onClickRandomItem }: {
-  content: { [key: string]: Segment[] },
-  onClickRandomItem: (line: string, index: number, tableKey: string) => void
-}) {
-  return (
-    <div>
-      {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(line, index, tableKey)} />)}
-    </div>
-  );
-}
-
-export function GeneratorLayout() {
-  const { config } = useLoaderData() as { config: TableConfig };
-  const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
+export function Generator({ config, generator, textTreeStorageLabel }: { config: TableConfig, generator: string, textTreeStorageLabel: string }) {
   const [lastStorageLabel, setLastStorageLabel] = useState(textTreeStorageLabel);
   const [textTree, setTextTree] = useState(storedTreeIfAvailable);
+  const content = textTree[generator]
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
@@ -98,16 +87,6 @@ export function GeneratorLayout() {
     // so don't trust text tree state, reinitialize it
     setTextTree(storedTreeIfAvailable());
     setLastStorageLabel(textTreeStorageLabel);
-  }
-
-  let generator = Object.keys(config.generators)[0];
-  if (window.location.hash) {
-    for (const title of Object.keys(config.generators)) {
-      if (window.location.hash === `#${titleToSlug(title)}`) {
-        generator = title;
-        break;
-      }
-    }
   }
 
   function storedTreeIfAvailable() {
@@ -149,17 +128,27 @@ export function GeneratorLayout() {
   }
 
   return (
-    <>
-      <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
-      <div className="generatorContent">
-        <Generator content={textTree[generator]} onClickRandomItem={(line, index, tableKey) => onClickRandomItem(generator, line, index, tableKey)} />
-        <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
-          <img src={dieIcon} alt="Reroll" />
-        </button>
+    <div className="generatorContent">
+      <div>
+        {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(generator, line, index, tableKey)} />)}
       </div>
-      <footer>
-        {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
-      </footer>
-    </>
+      <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
+        <img src={dieIcon} alt="Reroll" />
+      </button>
+    </div>
   );
+}
+
+export function GeneratorLayout() {
+  const { config } = useLoaderData() as { config: TableConfig };
+  const generator = matchSlug(Object.keys(config.generators), Object.keys(config.generators)[0]);
+  const textTreeStorageLabel = `textTree/${md5(JSON.stringify(config))}`;
+
+  return <>
+    <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
+    <Generator config={config} generator={generator} textTreeStorageLabel={textTreeStorageLabel} />
+    <footer>
+      {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
+    </footer>
+  </>;
 }
