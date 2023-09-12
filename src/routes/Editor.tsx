@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { TableConfig } from "../tableConfig";
 import { NavButton } from "../components/NavButton";
 import { matchSlug } from '../matchSlug';
 import { Generator, GeneratorButton } from './Generator';
-
-export function EditorHeader({ generators, selectedGenerator }: {
-  generators: string[],
-  selectedGenerator: string
-}) {
-  const navigate = useNavigate();
-  return <nav><ul className='navigation'>
-    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
-    <button>+</button>
-    <NavButton liClassNames={['pushRight']}>Preview</NavButton>
-    <NavButton>Save</NavButton>
-    <NavButton>Upload</NavButton>
-    <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
-  </ul></nav>;
-}
 
 const defaultConfig: TableConfig = {
   title: "New Config",
@@ -45,6 +30,8 @@ const defaultConfig: TableConfig = {
   }
 }
 
+const configStorageLabel = "editingConfig";
+
 function storedConfigIfAvailable(configStorageLabel: string) {
   const storedConfig = localStorage.getItem(configStorageLabel);
   if (storedConfig) {
@@ -53,22 +40,45 @@ function storedConfigIfAvailable(configStorageLabel: string) {
   return defaultConfig;
 }
 
+export async function loader() {
+  return { config: storedConfigIfAvailable(configStorageLabel) };
+}
+
+function EditorHeader({ generators, selectedGenerator }: {
+  generators: string[],
+  selectedGenerator: string,
+}) {
+  const navigate = useNavigate();
+  return <nav><ul className='navigation'>
+    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
+    <button>+</button>
+    <NavButton liClassNames={['pushRight']}>Preview</NavButton>
+    <NavButton>Save</NavButton>
+    <NavButton>Upload</NavButton>
+    <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
+  </ul></nav>;
+}
+
 export default function Editor() {
-  const configStorageLabel = "editingConfig";
-  const [config, setConfig] = useState(storedConfigIfAvailable(configStorageLabel));
+  let { config } = useLoaderData() as { config: TableConfig };
   const generator = matchSlug(Object.keys(config.generators), Object.keys(config.generators)[0]);
   const [editPaneContent, setEditPaneContent] = useState(config.generators[generator].join('\n'));
 
   useEffect(() => {
     localStorage.setItem(configStorageLabel, JSON.stringify(config));
-  }, [config, configStorageLabel]);
+  }, [config]);
+
+  useEffect(() => {
+    setEditPaneContent(config.generators[generator].join('\n'));
+  }, [config.generators, generator]);
 
   function updateGenerator(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newConfig = { ...config };
     newConfig.generators[generator] = event.target.value.split('\n');
-    setConfig(newConfig);
+    config = newConfig;
     setEditPaneContent(event.target.value);
   }
+
 
   return <>
     <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />

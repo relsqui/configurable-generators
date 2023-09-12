@@ -1,7 +1,7 @@
 currently:
 - adding a config editor
-  - fix generator navigation
   - add table editing
+  - implement adding a generator
   - implement save and upload
   - automatically add tables when they're referenced in the editor
     - then remove the handling of that case in buildTextTree

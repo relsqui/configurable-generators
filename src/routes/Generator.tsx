@@ -20,7 +20,7 @@ type TextTree = {
   }
 }
 
-export const loader = async ({ params }: any) => {
+export async function loader ({ params }: any) {
   const config = presetsBySlug[params.slug] as TableConfig;
   if (!config) throw Error(`Slug ${params.slug} not found.`);
   return { config };
