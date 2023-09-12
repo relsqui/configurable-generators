@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root';
 import Landing from './routes/Landing';
 import { loader as localLoader } from './routes/Local';
-import Editor, { loader as editorLoader } from './routes/Editor';
+import Editor from './routes/Editor';
 import { GeneratorLayout, loader as generatorLoader } from './routes/Generator';
 import './index.css';
 
@@ -28,9 +28,8 @@ const router = createBrowserRouter([
         loader: localLoader
       },
       {
-        path: "edit/:slug?",
-        element: <Editor />,
-        loader: editorLoader
+        path: "edit",
+        element: <Editor />
       }
     ]
   },

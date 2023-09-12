@@ -121,22 +121,19 @@ export function Generator({ config, generator, textTreeStorageLabel }: { config:
   }
 
   function onClickRandomItem(generator: string, line: string, index: number, tableKey: string) {
-    const newTextTree: TextTree = {};
-    Object.assign(newTextTree, textTree);
+    const newTextTree: TextTree = { ...textTree };
     newTextTree[generator][line][index] = { text: tableChoice(tableKey), tableKey };
     setTextTree(newTextTree);
   }
 
-  return (
-    <div className="generatorContent">
-      <div>
-        {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(generator, line, index, tableKey)} />)}
-      </div>
-      <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
-        <img src={dieIcon} alt="Reroll" />
-      </button>
+  return <>
+    <div>
+      {Object.keys(content).map((line) => <GeneratorLine key={line} content={content[line]} onClickRandomItem={(index: number, tableKey: string) => onClickRandomItem(generator, line, index, tableKey)} />)}
     </div>
-  );
+    <button className='reroll' onClick={() => setTextTree(buildTextTree([generator], textTree))}>
+      <img src={dieIcon} alt="Reroll" />
+    </button>
+  </>;
 }
 
 export function GeneratorLayout() {
@@ -146,7 +143,9 @@ export function GeneratorLayout() {
 
   return <>
     <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
-    <Generator config={config} generator={generator} textTreeStorageLabel={textTreeStorageLabel} />
+    <div className="generatorContent">
+      <Generator config={config} generator={generator} textTreeStorageLabel={textTreeStorageLabel} />
+    </div>
     <footer>
       {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
     </footer>

@@ -49,7 +49,8 @@ li {
 }
 
 button,
-select {
+select,
+textarea {
   font-size: inherit;
   font-family: inherit;
   border: none;
@@ -92,6 +93,7 @@ select {
   width: 100%;
   align-items: center;
   justify-content: center;
+  gap: 10vmin;
   font-size: calc(15px + 1.5vmin);
 }
 
@@ -145,4 +147,29 @@ randomItem {
   background-color: var(--light-gray);
   color: var(--dark-gray);
   cursor: pointer;
+}
+
+.editorContent {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.editPane {
+  cursor: text;
+  margin: 30px;
+  flex-shrink: 0;
+  flex-grow: 1;
+  resize: none;
+  font-size: calc(10px + 1.5vmin);
+}
+
+.editorPreview {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
