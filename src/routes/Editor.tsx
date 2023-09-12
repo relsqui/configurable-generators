@@ -102,12 +102,19 @@ export default function Editor() {
     navigate(`#${titleToSlug(newGenerator)}`);
   }
 
+  function deleteGenerator(event: React.MouseEvent<HTMLButtonElement>) {
+    const newConfig = {...config};
+    delete newConfig.generators[generator];
+    generator = Object.keys(config.generators)[0];
+    navigate(`#${titleToSlug(generator)}`);
+  }
+
   return <>
     <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} addGenerator={addGenerator} />
     <div className="editorContent">
       <div className="editorTitle">
         <input className="editGeneratorTitle" name="generatorName" value={generator} onChange={renameGenerator} />
-        <button>Delete</button>
+        { Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
       </div>
       <textarea className="editPane" onChange={updateGenerator} value={editPaneContent} />
       <div className="editorPreview">

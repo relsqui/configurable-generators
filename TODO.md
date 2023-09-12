@@ -1,12 +1,11 @@
 currently:
 - adding a config editor
-  - delete generator
   - add table editing
     - and deletion
   - implement save and upload
   - automatically add tables when they're referenced in the editor
     - then remove the handling of that case in buildTextTree
-  - confirm before deleting
+  - confirm before deleting things
 next:
 - error handling
 - prevent re-randomizing to the same item
