@@ -50,7 +50,8 @@ li {
 
 button,
 select,
-textarea {
+textarea,
+input {
   font-size: inherit;
   font-family: inherit;
   border: none;
@@ -155,15 +156,23 @@ randomItem {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
+  gap: 10px;
+  margin: 30px;
+  font-size: calc(10px + 1.5vmin);
 }
 
-.editPane {
+.editorTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.editPane,
+.editGeneratorTitle {
   cursor: text;
-  margin: 30px;
   flex-shrink: 0;
   flex-grow: 1;
   resize: none;
-  font-size: calc(10px + 1.5vmin);
 }
 
 .editorPreview {
