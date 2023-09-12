@@ -165,6 +165,7 @@ randomItem {
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  gap: 10px;
 }
 
 .editPane,

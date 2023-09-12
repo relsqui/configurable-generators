@@ -78,35 +78,36 @@ export default function Editor() {
   }, [config.generators, generator]);
 
 
-  function updateGenerator(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  function updateEditPane(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newConfig = { ...config };
     newConfig.generators[generator] = event.target.value.split('\n');
     setConfig(newConfig);
     setEditPaneContent(event.target.value);
   }
 
-  function addGenerator() {
-    const newGenerator = "New Generator"
-    const newGenerators = { ...config.generators, [newGenerator]: [] };
-    const newConfig = { ...config, generators: newGenerators };
+  function updateConfig(partialConfig: Partial<TableConfig>, newGenerator: string) {
+    const newConfig = { ...config, ...partialConfig };
     setConfig(newConfig);
     navigate(`#${titleToSlug(newGenerator)}`);
   }
 
+  function addGenerator() {
+    const newGenerator = "New Tab"
+    const newGenerators = { ...config.generators, [newGenerator]: [] };
+    updateConfig({ generators: newGenerators }, newGenerator);
+  }
+
   function renameGenerator(event: React.ChangeEvent<HTMLInputElement>) {
-    const newGenerator = event.target.value;
-    const newConfig = { ...config };
-    newConfig.generators[newGenerator] = newConfig.generators[generator];
-    delete newConfig.generators[generator];
-    generator = newGenerator;
-    navigate(`#${titleToSlug(newGenerator)}`);
+    const newTitle = event.target.value;
+    const newGenerators = { ...config.generators, [newTitle]: config.generators[generator] };
+    delete newGenerators[generator];
+    updateConfig({ generators: newGenerators }, newTitle);
   }
 
   function deleteGenerator(event: React.MouseEvent<HTMLButtonElement>) {
-    const newConfig = {...config};
-    delete newConfig.generators[generator];
-    generator = Object.keys(config.generators)[0];
-    navigate(`#${titleToSlug(generator)}`);
+    const newGenerators = { ...config.generators };
+    delete newGenerators[generator];
+    updateConfig({ generators: newGenerators }, Object.keys(config.generators)[0]);
   }
 
   return <>
@@ -114,9 +115,9 @@ export default function Editor() {
     <div className="editorContent">
       <div className="editorTitle">
         <input className="editGeneratorTitle" name="generatorName" value={generator} onChange={renameGenerator} />
-        { Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
+        {Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
       </div>
-      <textarea className="editPane" onChange={updateGenerator} value={editPaneContent} />
+      <textarea className="editPane" onChange={updateEditPane} value={editPaneContent} />
       <div className="editorPreview">
         <Generator config={config} generator={generator} textTreeStorageLabel="editingTextTree" />
       </div>
