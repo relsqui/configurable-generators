@@ -53,7 +53,7 @@ function EditorHeader({ generators, selectedGenerator, addGenerator }: {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
     {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
-    <button onClick={addGenerator}>+</button>
+    <button className="square" onClick={addGenerator}>+</button>
     <NavButton liClassNames={['pushRight']}>Preview</NavButton>
     <NavButton>Save</NavButton>
     <NavButton>Upload</NavButton>
@@ -67,6 +67,8 @@ export default function Editor() {
   const [config, setConfig] = useState(loadedConfig)
   let generator = matchSlug(Object.keys(config.generators), Object.keys(config.generators)[0]);
   const [editPaneContent, setEditPaneContent] = useState(config.generators[generator].join('\n'));
+  const [selectedTable, setSelectedTable] = useState(Object.keys(config.tables)[0]);
+  const [tablePaneContent, setTablePaneContent] = useState(config.tables[selectedTable].join('\n'));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,6 +79,16 @@ export default function Editor() {
     setEditPaneContent(config.generators[generator].join('\n'));
   }, [config.generators, generator]);
 
+  useEffect(() => {
+    setTablePaneContent(config.tables[selectedTable].join('\n'));
+  }, [config.tables, selectedTable]);
+
+
+  function updateConfig(partialConfig: Partial<TableConfig>, newGenerator: string) {
+    const newConfig = { ...config, ...partialConfig };
+    setConfig(newConfig);
+    navigate(`#${titleToSlug(newGenerator)}`);
+  }
 
   function updateEditPane(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newConfig = { ...config };
@@ -85,10 +97,11 @@ export default function Editor() {
     setEditPaneContent(event.target.value);
   }
 
-  function updateConfig(partialConfig: Partial<TableConfig>, newGenerator: string) {
-    const newConfig = { ...config, ...partialConfig };
+  function updateTableItems(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    const newConfig = { ...config };
+    newConfig.tables[selectedTable] = event.target.value.split('\n');
     setConfig(newConfig);
-    navigate(`#${titleToSlug(newGenerator)}`);
+    setTablePaneContent(event.target.value);
   }
 
   function addGenerator() {
@@ -112,11 +125,11 @@ export default function Editor() {
 
   return <>
     <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} addGenerator={addGenerator} />
-    <div className="editorContent">
+    <div className="editorContent flexRow">
       <div className="editorGenerator">
-        <div className="editorTitle">
+        <div className="editorTitle flexRow">
           <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
-          {Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete</button> : ''}
+          {Object.keys(config.generators).length > 1 ? <button onClick={deleteGenerator}>Delete '{generator}'</button> : ''}
         </div>
         <textarea className="editorItem" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
@@ -124,10 +137,13 @@ export default function Editor() {
         </div>
       </div>
       <div className="editorTable">
-          <select className="editorItem editorTableSelect">
-            <option>table</option>
+        <div className="tableTitle flexRow">
+          <select className="editorItem editorTableSelect" defaultValue={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
+            {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
-          <textarea className="editorItem"></textarea>
+          <button className="square">+</button>
+        </div>
+        <textarea className="editorItem" value={tablePaneContent} onChange={updateTableItems}></textarea>
       </div>
     </div>
   </>;
