@@ -1,12 +1,11 @@
 currently:
 - adding a config editor
-  - add table editing
-    - and deletion
   - implement save and upload
-  - reorder generators
-  - automatically add tables when they're referenced in the editor
-    - then remove the handling of that case in buildTextTree
+  - implement reordering generators
   - confirm before deleting things
+  - switch to rename on a button press, mostly to make the UI more obvious?
+  - automatically add tables when they're referenced in the editor?
+    - then remove the handling of that case in buildTextTree
 next:
 - error handling
 - prevent re-randomizing to the same item

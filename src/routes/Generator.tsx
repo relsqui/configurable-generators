@@ -122,6 +122,7 @@ export function Generator({ config, generator, textTreeStorageLabel }: { config:
   }
 
   function onClickRandomItem(generator: string, line: string, index: number, tableKey: string) {
+    if (!config.tables[tableKey]) return; // might not exist yet
     const newTextTree: TextTree = { ...textTree };
     newTextTree[generator][line][index] = { text: tableChoice(config.tables[tableKey]), tableKey };
     setTextTree(newTextTree);
