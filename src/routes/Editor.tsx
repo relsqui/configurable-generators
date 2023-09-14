@@ -81,10 +81,12 @@ export default function Editor() {
     setTablePaneContent(config.tables[selectedTable].join('\n'));
   }, [config.tables, selectedTable]);
 
-  function updateConfig(partialConfig: Partial<TableConfig>, newGenerator: string = generator) {
+  function updateConfig(partialConfig: Partial<TableConfig>, newGenerator?: string) {
     const newConfig = { ...config, ...partialConfig };
     setConfig(newConfig);
-    navigate(`#${titleToSlug(newGenerator)}`);
+    if (newGenerator) {
+      navigate(`#${titleToSlug(newGenerator)}`);
+    }
   }
 
   function updateEditPane(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -96,7 +98,7 @@ export default function Editor() {
 
   function updateTableItems(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newConfig = { ...config };
-    newConfig.tables[selectedTable] = event.target.value.split('\n');
+    newConfig.tables[selectedTable] = event.target.value.split('\n').filter(item => !!item.length);
     setConfig(newConfig);
     setTablePaneContent(event.target.value);
   }
@@ -138,8 +140,8 @@ export default function Editor() {
   function deleteTable(event: React.MouseEvent<HTMLButtonElement>) {
     const newTables = { ...config.tables };
     delete newTables[selectedTable];
-    setSelectedTable(Object.keys(config.tables)[0]);
     updateConfig({ tables: newTables });
+    setSelectedTable(Object.keys(newTables)[0]);
   }
 
   return <>
