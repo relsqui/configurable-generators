@@ -110,11 +110,6 @@ input {
   margin-left: auto;
 }
 
-.flexRow {
-  display: flex;
-  flex-direction: row;
-}
-
 .square {
   aspect-ratio: 1;
 }
@@ -159,6 +154,13 @@ randomItem {
   cursor: pointer;
 }
 
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px;
+}
+
 .editorContent {
   height: 100%;
   flex-wrap: wrap;
@@ -167,6 +169,29 @@ randomItem {
   padding: 30px;
   gap: 60px;
   font-size: calc(10px + 1.5vmin);
+}
+
+.editorItem {
+  cursor: text;
+  flex-shrink: 0;
+  flex-grow: 1;
+  resize: none;
+}
+
+.editorMetadata {
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: -20px;
+  flex-wrap: wrap;
+}
+
+.editorDescription {
+  flex-grow: 3;
+}
+
+.minTextareaHeight {
+  /* We really want lh but it's not widely enough supported yet. */
+  flex-basis: 6em;
 }
 
 .editorGenerator {
@@ -184,23 +209,6 @@ randomItem {
   flex-grow: 1;
   flex-basis: 200px;
   gap: 10px;
-}
-
-.tableTitle {
-  align-items: stretch;
-  gap: 10px;
-}
-
-.editorTitle {
-  align-items: stretch;
-  gap: 10px;
-}
-
-.editorItem {
-  cursor: text;
-  flex-shrink: 0;
-  flex-grow: 1;
-  resize: none;
 }
 
 .editorTableSelect {

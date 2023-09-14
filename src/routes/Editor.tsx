@@ -8,8 +8,11 @@ import { Generator, GeneratorButton } from './Generator';
 import { titleToSlug } from '../presets';
 
 const defaultConfig: TableConfig = {
-  title: "New Config",
-  schemaVersion: "0.1.0",
+  title: 'New Config Title',
+  description: '',
+  link: '',
+  schemaVersion: '0.1.0',
+  contentVersion: '',
   generators: {
     "Distraction": [
       "Look behind you! It's a <color> <animal>!"
@@ -54,9 +57,9 @@ function EditorHeader({ generators, selectedGenerator, saveConfig }: {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
     {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
-    <NavButton liClassNames={['pushRight']}>Preview</NavButton>
-    <NavButton buttonProps={{onClick: saveConfig}}>Save</NavButton>
-    <NavButton>Upload</NavButton>
+    {/* <NavButton liClassNames={['pushRight']}>Preview</NavButton> */}
+    <NavButton liClassNames={['pushRight']} buttonProps={{ onClick: saveConfig }}>Save</NavButton>
+    {/* <NavButton>Upload</NavButton> */}
     <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
 }
@@ -112,7 +115,7 @@ export default function Editor() {
   }
 
   function addTable() {
-    const newTables = {...config.tables, "new": []};
+    const newTables = { ...config.tables, "new": [] };
     updateConfig({ tables: newTables });
     setSelectedTable("new");
   }
@@ -126,7 +129,7 @@ export default function Editor() {
 
   function renameTable(event: React.ChangeEvent<HTMLInputElement>) {
     const newTitle = event.target.value;
-    const newTables = {...config.tables, [newTitle]: config.tables[selectedTable]};
+    const newTables = { ...config.tables, [newTitle]: config.tables[selectedTable] };
     // maybe replace previous instances of it in generators here? weird edge case possibilities
     delete newTables[selectedTable];
     updateConfig({ tables: newTables });
@@ -147,27 +150,32 @@ export default function Editor() {
   }
 
   function saveConfig() {
-    const configBlob = new Blob([JSON.stringify(config, null, 2)], {type: "application/json;charset=utf-8"});
-    const filename = titleToSlug(config.title);
+    const configBlob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json;charset=utf-8" });
+    const filename = titleToSlug(config.title || 'generator-config');
     saveAs(configBlob, filename);
   }
 
   return <>
     <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} saveConfig={saveConfig} />
     <div className="editorContent flexRow">
+      <div className="flexRow editorMetadata">
+        <input className="editorItem" placeholder='Config Title' value={config.title} onChange={(e) => updateConfig({ title: e.target.value })} />
+        <input className="editorItem editorDescription" placeholder='Made by ... or intended for .... (optional)' value={config.description || ''} onChange={(e) => updateConfig({ description: e.target.value })} />
+        <input className="editorItem" placeholder='https://my-cool-games.example.com (optional)' value={config.link || ''} onChange={(e) => updateConfig({ link: e.target.value })} />
+      </div>
       <div className="editorGenerator">
-        <div className="editorTitle flexRow">
+        <div className="flexRow">
           <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
           <button className="square" onClick={addGenerator}>+</button>
           {Object.keys(config.generators).length > 1 ? <button className="square" onClick={deleteGenerator}>x</button> : ''}
         </div>
-        <textarea className="editorItem" onChange={updateEditPane} value={editPaneContent} />
+        <textarea className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
           <Generator config={config} generator={generator} />
         </div>
       </div>
       <div className="editorTable">
-        <div className="tableTitle flexRow">
+        <div className="flexRow">
           <select className="editorItem editorTableSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
             {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
@@ -177,7 +185,7 @@ export default function Editor() {
         <div className="flexRow">
           <input className="editorItem" name="tableName" value={selectedTable} onChange={renameTable} />
         </div>
-        <textarea className="editorItem" value={tablePaneContent} onChange={updateTableItems}></textarea>
+        <textarea className="editorItem minTextareaHeight" value={tablePaneContent} onChange={updateTableItems}></textarea>
       </div>
     </div>
   </>;

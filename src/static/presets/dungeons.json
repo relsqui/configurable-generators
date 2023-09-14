@@ -1,5 +1,6 @@
 {
   "title": "Classic Dungeons",
+  "description": "Loosely inspired by the appendices from the D&D 2E DMG.",
   "schemaVersion": "0.1.0",
   "generators": {
     "Passage": [

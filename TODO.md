@@ -1,20 +1,20 @@
 currently:
 - adding a config editor
-  - implement editing metadata (title, description, link)
-  - implement uploading into the editor
-  - fix reordering generators on rename
-  - implement reordering generators on purpose
-  - don't let generator names be empty (because they become unnavigable)
-    - empty table names randomize but aren't clickable which ... that can be a secret feature I guess
+  - switch generator selector to a dropdown for consistency and so empty titles are reachable
+    - maybe also explicit "rename" button instead of live changing (this would also support table name updating)
 next, MVP:
-- better error handling
-- confirm before deleting config pieces
+- error handling
+- confirm before deleting config pieces or resetting config
 non-MVP but functional:
+- implement uploading into the editor
+- fix reordering generators on rename
+- implement reordering generators on purpose
 - timestamp cached configs and expire them with inactivity -- and/or replace w/same title?
 - prevent re-randomizing to the same item
 - customize colors (in the config maybe?)
 - pins for individual random items
 - undo button for individual random items
+- implement preview from editor
 non-functional:
 - set flex bases for the editor textareas so they don't collapse too much
 - switch to rename on a button press? mostly to make the UI more obvious

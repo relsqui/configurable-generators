@@ -3,12 +3,11 @@ export type StringListMap = {
 }
 
 export type TableConfig = {
-  title: string,
-  description?: string,
-  link?: string,
-  schemaVersion: string,
-  contentVersion?: string,
-  generators: StringListMap,
+  title: string
+  description?: string
+  link?: string
+  schemaVersion: string
+  contentVersion?: string
+  generators: StringListMap
   tables: StringListMap
-  isDefault?: boolean
 }
