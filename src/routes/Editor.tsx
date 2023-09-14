@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { saveAs } from 'file-saver';
 import { TableConfig } from "../tableConfig";
 import { NavButton } from "../components/NavButton";
 import { matchSlug } from '../matchSlug';
@@ -45,15 +46,16 @@ export async function loader() {
   return { config: storedConfigIfAvailable(configStorageLabel) };
 }
 
-function EditorHeader({ generators, selectedGenerator }: {
+function EditorHeader({ generators, selectedGenerator, saveConfig }: {
   generators: string[],
-  selectedGenerator: string
+  selectedGenerator: string,
+  saveConfig: () => void
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
     {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
     <NavButton liClassNames={['pushRight']}>Preview</NavButton>
-    <NavButton>Save</NavButton>
+    <NavButton buttonProps={{onClick: saveConfig}}>Save</NavButton>
     <NavButton>Upload</NavButton>
     <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
@@ -144,8 +146,14 @@ export default function Editor() {
     setSelectedTable(Object.keys(newTables)[0]);
   }
 
+  function saveConfig() {
+    const configBlob = new Blob([JSON.stringify(config, null, 2)], {type: "application/json;charset=utf-8"});
+    const filename = titleToSlug(config.title);
+    saveAs(configBlob, filename);
+  }
+
   return <>
-    <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
+    <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} saveConfig={saveConfig} />
     <div className="editorContent flexRow">
       <div className="editorGenerator">
         <div className="editorTitle flexRow">
