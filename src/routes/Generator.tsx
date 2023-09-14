@@ -1,7 +1,8 @@
 import md5 from 'md5';
 import { useEffect, useState } from "react";
 import { TableConfig } from "../tableConfig";
-import dieIcon from '../static/icons/die.png';
+import { ReactComponent as DieIcon } from '../static/icons/materialDie.svg';
+import { ReactComponent as ExitIcon } from '../static/icons/materialExit.svg';
 import { PresetDropdown } from '../components/PresetDropdown';
 import { NavButton } from '../components/NavButton';
 import { useLoaderData, useNavigate } from 'react-router-dom';
@@ -46,7 +47,11 @@ export function GeneratorHeader({ generators, selectedGenerator, title }: {
   return <nav><ul className='navigation'>
     {generators.length < 2 ? '' : generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
     <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
-    <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
+    <li>
+      <button onClick={() => navigate("/")} className="icon">
+        <ExitIcon className="icon" />
+      </button>
+    </li>
   </ul></nav>;
 }
 
@@ -112,6 +117,7 @@ export function Generator({ config, generator }: { config: TableConfig, generato
   const textTreeStorageLabel = getStorageLabel(config);
   const [textTree, setTextTree] = useState(() => storedTreeIfAvailable(config));
   const [lastConfigHash, setLastConfigHash] = useState(() => md5(JSON.stringify(config)));
+  const iconColor = getComputedStyle(document.documentElement).getPropertyPriority('--light-gray');
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
@@ -140,8 +146,8 @@ export function Generator({ config, generator }: { config: TableConfig, generato
         <GeneratorLine key={lineIndex} segments={segments} onClickRandomItem={(segmentIndex: number, tableKey: string) => onClickRandomItem(generator, lineIndex, segmentIndex, tableKey)} />
       )}
     </div>
-    <button className='reroll' onClick={() => setTextTree(buildTextTree(config, textTree, [generator]))}>
-      <img src={dieIcon} alt="Reroll" />
+    <button className='icon' onClick={() => setTextTree(buildTextTree(config, textTree, [generator]))}>
+      <DieIcon className='icon reroll' />
     </button>
   </>;
 }

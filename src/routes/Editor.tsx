@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { saveAs } from 'file-saver';
+import { ReactComponent as AddIcon } from '../static/icons/materialAdd.svg';
+import { ReactComponent as ClearIcon } from '../static/icons/materialClear.svg';
+import { ReactComponent as DownloadIcon } from '../static/icons/materialDownload.svg';
+import { ReactComponent as TrashIcon } from '../static/icons/materialTrash.svg';
+import { ReactComponent as ExitIcon } from '../static/icons/materialExit.svg';
 import { TableConfig } from "../tableConfig";
 import { NavButton } from "../components/NavButton";
 import { matchSlug } from '../matchSlug';
@@ -49,21 +54,24 @@ export async function loader() {
   return { config: storedConfigIfAvailable(configStorageLabel) };
 }
 
-function EditorHeader({ generators, selectedGenerator, saveConfig, resetConfig }: {
-  generators: string[],
-  selectedGenerator: string,
-  saveConfig: () => void,
-  resetConfig: () => void
-}) {
+function EditorHeader({ saveConfig, resetConfig }: { saveConfig: () => void, resetConfig: () => void }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
-    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
-    {/* <NavButton liClassNames={['pushRight']}>Preview</NavButton> */}
-    <NavButton liClassNames={['pushRight']} buttonProps={{ onClick: saveConfig }}>Save</NavButton>
-    <NavButton buttonProps={{ onClick: resetConfig }}>Reset</NavButton>
-    {/* <NavButton>Upload</NavButton> */}
-    <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
+    <li className="pushRight">
+      <button className="icon" onClick={saveConfig}>
+        <DownloadIcon className="icon" />
+      </button>
+    </li>
+    <NavButton buttonProps={{ onClick: resetConfig }} classNames={['icon']}><TrashIcon className="icon" /></NavButton>
+    <NavButton buttonProps={{ onClick: () => navigate("/") }} classNames={['icon']}><ExitIcon className="icon" /></NavButton>
   </ul></nav>;
+}
+
+function PreviewHeader({ generators, selectedGenerator }: { generators: string[], selectedGenerator: string }) {
+  return <nav><ul className='navigation'>
+    {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
+  </ul></nav>;
+
 }
 
 export default function Editor() {
@@ -163,7 +171,7 @@ export default function Editor() {
   }
 
   return <>
-    <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} saveConfig={saveConfig} resetConfig={resetConfig} />
+    <EditorHeader saveConfig={saveConfig} resetConfig={resetConfig} />
     <div className="editorContent flexRow">
       <div className="flexRow editorMetadata">
         <input className="editorItem" placeholder='Config Title' value={config.title} onChange={(e) => updateConfig({ title: e.target.value })} />
@@ -172,12 +180,16 @@ export default function Editor() {
       </div>
       <div className="editorGenerator">
         <div className="flexRow">
+          <select value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
+            {Object.keys(config.generators).map(generator => <option key={generator} value={generator}>{generator}</option>)}
+          </select>
+          <button className="icon" onClick={addGenerator}><AddIcon className="icon" /></button>
+          {Object.keys(config.generators).length > 1 ? <button className="icon" onClick={deleteGenerator}><ClearIcon className="icon" /></button> : ''}
           <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
-          <button className="square" onClick={addGenerator}>+</button>
-          {Object.keys(config.generators).length > 1 ? <button className="square" onClick={deleteGenerator}>x</button> : ''}
         </div>
         <textarea className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
+          <PreviewHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
           <Generator config={config} generator={generator} />
         </div>
       </div>
@@ -186,8 +198,8 @@ export default function Editor() {
           <select className="editorItem editorTableSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
             {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
-          <button className="square" onClick={addTable}>+</button>
-          {Object.keys(config.tables).length > 1 ? <button className="square" onClick={deleteTable}>x</button> : ''}
+          <button className="icon" onClick={addTable}><AddIcon className="icon" /></button>
+          {Object.keys(config.tables).length > 1 ? <button className="icon" onClick={deleteTable}><ClearIcon className="icon" /></button> : ''}
         </div>
         <div className="flexRow">
           <input className="editorItem" name="tableName" value={selectedTable} onChange={renameTable} />

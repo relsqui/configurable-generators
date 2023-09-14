@@ -103,15 +103,21 @@ input {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 5px;
-  margin: 0;
+  margin: 10px;
 }
 
 .pushRight {
   margin-left: auto;
 }
 
-.square {
+.icon {
+  fill: var(--light-gray);
+  background: transparent;
+  vertical-align: baseline;
   aspect-ratio: 1;
+  min-height: 2em;
+  margin: 0;
+  padding: 0;
 }
 
 footer {
@@ -143,9 +149,7 @@ footer {
 }
 
 .reroll {
-  background: transparent;
-  border: none;
-  padding: 1px;
+  min-height: 4em;
 }
 
 randomItem {
@@ -165,9 +169,11 @@ randomItem {
   height: 100%;
   flex-wrap: wrap;
   align-items: stretch;
-  margin: 10px;
-  padding: 30px;
-  gap: 60px;
+  align-content: flex-start;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  gap: 40px;
   font-size: calc(10px + 1.5vmin);
 }
 
@@ -181,16 +187,15 @@ randomItem {
 .editorMetadata {
   align-items: flex-start;
   width: 100%;
-  margin-bottom: -20px;
   flex-wrap: wrap;
 }
 
 .editorDescription {
-  flex-grow: 3;
+  flex-grow: 2;
 }
 
 .minTextareaHeight {
-  /* We really want lh here but it's not widely enough supported yet. */
+  /* We really want lh units here but it's not widely enough supported yet. */
   flex-basis: 6em;
 }
 
@@ -198,9 +203,7 @@ randomItem {
   display: flex;
   flex-direction: column;
   flex-grow: 3;
-  flex-basis: 600px;
   gap: 10px;
-  height: calc(100% - 60px);
 }
 
 .editorTable {
@@ -208,7 +211,6 @@ randomItem {
   flex-direction: column;
   align-items: stretch;
   flex-grow: 1;
-  flex-basis: 200px;
   gap: 10px;
 }
 
@@ -223,4 +225,9 @@ randomItem {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 20px 20px 50px 20px;
+  border: medium var(--light-gray) dashed;
+  border-radius: calc(2px + 1vmin);
 }
