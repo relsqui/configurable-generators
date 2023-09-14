@@ -190,7 +190,7 @@ randomItem {
 }
 
 .minTextareaHeight {
-  /* We really want lh but it's not widely enough supported yet. */
+  /* We really want lh here but it's not widely enough supported yet. */
   flex-basis: 6em;
 }
 
@@ -200,6 +200,7 @@ randomItem {
   flex-grow: 3;
   flex-basis: 600px;
   gap: 10px;
+  height: calc(100% - 60px);
 }
 
 .editorTable {

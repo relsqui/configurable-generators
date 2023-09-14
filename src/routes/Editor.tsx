@@ -49,16 +49,18 @@ export async function loader() {
   return { config: storedConfigIfAvailable(configStorageLabel) };
 }
 
-function EditorHeader({ generators, selectedGenerator, saveConfig }: {
+function EditorHeader({ generators, selectedGenerator, saveConfig, resetConfig }: {
   generators: string[],
   selectedGenerator: string,
-  saveConfig: () => void
+  saveConfig: () => void,
+  resetConfig: () => void
 }) {
   const navigate = useNavigate();
   return <nav><ul className='navigation'>
     {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
     {/* <NavButton liClassNames={['pushRight']}>Preview</NavButton> */}
     <NavButton liClassNames={['pushRight']} buttonProps={{ onClick: saveConfig }}>Save</NavButton>
+    <NavButton buttonProps={{ onClick: resetConfig }}>Reset</NavButton>
     {/* <NavButton>Upload</NavButton> */}
     <NavButton buttonProps={{ onClick: () => navigate("/") }}>Close</NavButton>
   </ul></nav>;
@@ -155,13 +157,18 @@ export default function Editor() {
     saveAs(configBlob, filename);
   }
 
+  function resetConfig() {
+    updateConfig(defaultConfig, Object.keys(defaultConfig.generators)[0]);
+    setSelectedTable(Object.keys(defaultConfig.tables)[0]);
+  }
+
   return <>
-    <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} saveConfig={saveConfig} />
+    <EditorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} saveConfig={saveConfig} resetConfig={resetConfig} />
     <div className="editorContent flexRow">
       <div className="flexRow editorMetadata">
         <input className="editorItem" placeholder='Config Title' value={config.title} onChange={(e) => updateConfig({ title: e.target.value })} />
         <input className="editorItem editorDescription" placeholder='Made by ... or intended for .... (optional)' value={config.description || ''} onChange={(e) => updateConfig({ description: e.target.value })} />
-        <input className="editorItem" placeholder='https://my-cool-games.example.com (optional)' value={config.link || ''} onChange={(e) => updateConfig({ link: e.target.value })} />
+        <input className="editorItem" placeholder='https://my-games.example.com (optional)' value={config.link || ''} onChange={(e) => updateConfig({ link: e.target.value })} />
       </div>
       <div className="editorGenerator">
         <div className="flexRow">
