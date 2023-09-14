@@ -161,6 +161,7 @@ randomItem {
 .flexRow {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 10px;
 }
@@ -170,18 +171,14 @@ randomItem {
   flex-wrap: wrap;
   align-items: stretch;
   align-content: flex-start;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding: 20px;
+  margin: 20px 20px 20px 0;
   gap: 40px;
   font-size: calc(10px + 1.5vmin);
 }
 
 .editorItem {
   cursor: text;
-  flex-shrink: 0;
   flex-grow: 1;
-  resize: none;
 }
 
 .editorMetadata {
@@ -214,9 +211,13 @@ randomItem {
   gap: 10px;
 }
 
-.editorTableSelect {
+.editorSelect {
   flex-grow: 1;
-  cursor: pointer;
+  cursor: default;
+}
+
+.editorRenameInput {
+  flex-grow: 10;
 }
 
 .editorPreview {

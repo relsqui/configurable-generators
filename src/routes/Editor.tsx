@@ -180,12 +180,12 @@ export default function Editor() {
       </div>
       <div className="editorGenerator">
         <div className="flexRow">
-          <select value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
+          <select className="editorItem editorSelect" value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
             {Object.keys(config.generators).map(generator => <option key={generator} value={generator}>{generator}</option>)}
           </select>
           <button className="icon" onClick={addGenerator}><AddIcon className="icon" title="Add a generator tab" /></button>
           {Object.keys(config.generators).length > 1 ? <button className="icon" onClick={deleteGenerator}><ClearIcon className="icon" title={`Delete '${generator}'`} /></button> : ''}
-          <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
+          <input className="editorItem editorRenameInput" name="generatorName" value={generator} onChange={renameGenerator} />
         </div>
         <textarea className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
@@ -195,7 +195,7 @@ export default function Editor() {
       </div>
       <div className="editorTable">
         <div className="flexRow">
-          <select className="editorItem editorTableSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
+          <select className="editorItem editorSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
             {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
           <button className="icon" onClick={addTable}><AddIcon className="icon" title="Add a table" /></button>
