@@ -155,7 +155,7 @@ export default function Editor() {
         </div>
         <textarea className="editorItem" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
-          <Generator config={config} generator={generator} textTreeStorageLabel="editingTextTree" />
+          <Generator config={config} generator={generator} />
         </div>
       </div>
       <div className="editorTable">

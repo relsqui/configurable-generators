@@ -1,6 +1,5 @@
 currently:
 - adding a config editor
-  - fix texttree generator keys bug I just found
   - implement save and upload
   - fix reordering generators on rename
   - implement reordering generators on purpose
