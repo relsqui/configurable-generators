@@ -1,6 +1,7 @@
 currently:
 - adding a config editor
   - implement save and upload
+  - implement editing metadata (title, description, link)
   - fix reordering generators on rename
   - implement reordering generators on purpose
   - don't let generator names be empty (because they become unnavigable)
@@ -14,6 +15,7 @@ next, functional changes:
 - pins for individual random items
 - undo button for individual random items
 non-functional:
+- set flex bases for the editor textareas so they don't collapse too much
 - switch to rename on a button press? mostly to make the UI more obvious
 - automatically add tables when they're referenced in the editor?
   - then remove the handling of that case in buildTextTree

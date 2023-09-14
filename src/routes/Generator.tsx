@@ -118,10 +118,13 @@ export function Generator({ config, generator }: { config: TableConfig, generato
   }, [textTree, textTreeStorageLabel]);
 
   const configHash = md5(JSON.stringify(config));
+  let segments = textTree[generator];
   if (configHash !== lastConfigHash) {
     const newTree = buildTextTree(config);
     setTextTree(newTree);
     setLastConfigHash(configHash);
+    // update this synchronously so we can use it this render
+    segments = newTree[generator];
   }
 
   function onClickRandomItem(generator: string, lineIndex: number, segmentIndex: number, tableKey: string) {
@@ -133,7 +136,7 @@ export function Generator({ config, generator }: { config: TableConfig, generato
 
   return <>
     <div>
-      {Array.from(textTree[generator].entries(), ([lineIndex, segments]) =>
+      {Array.from(segments.entries(), ([lineIndex, segments]) =>
         <GeneratorLine key={lineIndex} segments={segments} onClickRandomItem={(segmentIndex: number, tableKey: string) => onClickRandomItem(generator, lineIndex, segmentIndex, tableKey)} />
       )}
     </div>
