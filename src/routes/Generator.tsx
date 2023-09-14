@@ -49,7 +49,7 @@ export function GeneratorHeader({ generators, selectedGenerator, title }: {
     <li className="pushRight"><PresetDropdown selected={title} /></li>&nbsp;
     <li>
       <button onClick={() => navigate("/")} className="icon">
-        <ExitIcon className="icon" />
+        <ExitIcon className="icon" title="Exit" />
       </button>
     </li>
   </ul></nav>;
@@ -117,7 +117,6 @@ export function Generator({ config, generator }: { config: TableConfig, generato
   const textTreeStorageLabel = getStorageLabel(config);
   const [textTree, setTextTree] = useState(() => storedTreeIfAvailable(config));
   const [lastConfigHash, setLastConfigHash] = useState(() => md5(JSON.stringify(config)));
-  const iconColor = getComputedStyle(document.documentElement).getPropertyPriority('--light-gray');
 
   useEffect(() => {
     localStorage.setItem(textTreeStorageLabel, JSON.stringify(textTree));
@@ -147,7 +146,7 @@ export function Generator({ config, generator }: { config: TableConfig, generato
       )}
     </div>
     <button className='icon' onClick={() => setTextTree(buildTextTree(config, textTree, [generator]))}>
-      <DieIcon className='icon reroll' />
+      <DieIcon className='icon reroll' title="Reroll" />
     </button>
   </>;
 }

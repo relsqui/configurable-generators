@@ -100,7 +100,7 @@ input {
 
 .navigation {
   font-size: calc(10px + 0.8vmin);
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
   gap: 5px;
   margin: 10px;

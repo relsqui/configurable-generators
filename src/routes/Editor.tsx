@@ -59,11 +59,11 @@ function EditorHeader({ saveConfig, resetConfig }: { saveConfig: () => void, res
   return <nav><ul className='navigation'>
     <li className="pushRight">
       <button className="icon" onClick={saveConfig}>
-        <DownloadIcon className="icon" />
+        <DownloadIcon className="icon" title="Download config" />
       </button>
     </li>
-    <NavButton buttonProps={{ onClick: resetConfig }} classNames={['icon']}><TrashIcon className="icon" /></NavButton>
-    <NavButton buttonProps={{ onClick: () => navigate("/") }} classNames={['icon']}><ExitIcon className="icon" /></NavButton>
+    <NavButton buttonProps={{ onClick: resetConfig }} classNames={['icon']}><TrashIcon className="icon" title="Reset config" /></NavButton>
+    <NavButton buttonProps={{ onClick: () => navigate("/") }} classNames={['icon']}><ExitIcon className="icon" title="Exit" /></NavButton>
   </ul></nav>;
 }
 
@@ -183,8 +183,8 @@ export default function Editor() {
           <select value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
             {Object.keys(config.generators).map(generator => <option key={generator} value={generator}>{generator}</option>)}
           </select>
-          <button className="icon" onClick={addGenerator}><AddIcon className="icon" /></button>
-          {Object.keys(config.generators).length > 1 ? <button className="icon" onClick={deleteGenerator}><ClearIcon className="icon" /></button> : ''}
+          <button className="icon" onClick={addGenerator}><AddIcon className="icon" title="Add a generator tab" /></button>
+          {Object.keys(config.generators).length > 1 ? <button className="icon" onClick={deleteGenerator}><ClearIcon className="icon" title={`Delete '${generator}'`} /></button> : ''}
           <input className="editorItem" name="generatorName" value={generator} onChange={renameGenerator} />
         </div>
         <textarea className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
@@ -198,8 +198,8 @@ export default function Editor() {
           <select className="editorItem editorTableSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
             {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
-          <button className="icon" onClick={addTable}><AddIcon className="icon" /></button>
-          {Object.keys(config.tables).length > 1 ? <button className="icon" onClick={deleteTable}><ClearIcon className="icon" /></button> : ''}
+          <button className="icon" onClick={addTable}><AddIcon className="icon" title="Add a table" /></button>
+          {Object.keys(config.tables).length > 1 ? <button className="icon" onClick={deleteTable}><ClearIcon className="icon" title={`Delete '${selectedTable}'`} /></button> : ''}
         </div>
         <div className="flexRow">
           <input className="editorItem" name="tableName" value={selectedTable} onChange={renameTable} />

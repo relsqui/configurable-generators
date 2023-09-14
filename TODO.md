@@ -1,8 +1,8 @@
-next, MVP:
+MVP:
 - error handling
 - confirm before deleting config pieces or resetting config
 - catch up on accessibility
-non-MVP but functional:
+non-MVP functional changes:
 - implement uploading into the editor
 - fix reordering generators on rename
 - implement reordering generators on purpose
@@ -13,11 +13,8 @@ non-MVP but functional:
 - undo button for individual random items
 - maybe have renaming a table live update it in the config?
   - this means switching to a button press so that substring table names don't have unintended effects
-non-functional:
-- set flex bases for the editor textareas so they don't collapse too much
-- switch to rename on a button press? mostly to make the UI more obvious
 - automatically add tables when they're referenced in the editor?
-  - then remove the handling of that case in buildTextTree
+non-functional improvements:
 - tidy css (rearrange into more sensible groups)
   - make an IconButton component to centralize a bunch of logic
 - split up editor into smaller components
