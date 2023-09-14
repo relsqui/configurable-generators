@@ -1,0 +1,56 @@
+{
+  "title": "Game Pieces",
+  "schemaVersion": "0.1.0",
+  "generators": {
+    "Instructions": [
+      "To play, you will need:",
+      "<dice>",
+      "<dice>",
+      "<game-piece>"
+    ]
+  },
+  "tables": {
+    "dice": [
+      "a d4 (spring, summer, autumn, winter)",
+      "a d4 (fire, water, earth, air)",
+      "a d4 (blood, phlegm, yellow bile, black bile)",
+      "a d4 (war, pestilence, famine, death)",
+      "a d4 (soprano, alto, tenor, bass)",
+      "a d4 (sweet, salty, sour, bitter)",
+      "a numeric d4",
+      "a d6 of cardinal directions",
+      "a d6 of primary and secondary colors",
+      "a d6 of noble gases",
+      "a d6 (limbs, head, torso)",
+      "a numeric d6",
+      "a d8 of solfege syllables",
+      "a d8 of planets",
+      "a d8 of blood types",
+      "a d8 of moon phases",
+      "a numeric d10",
+      "a d10 of biblical plagues",
+      "a percentile die",
+      "a d12 of months",
+      "a d12 of Western zodiac signs",
+      "a d12 of hours",
+      "a d12 of Chinese zodiac signs",
+      "a d12 of Herculean trials"
+    ],
+    "game-piece": [
+      "a bridge deck",
+      "a tarot deck",
+      "poker chips",
+      "a cribbage board",
+      "some scratch paper",
+      "a mancala set",
+      "some sticky notes",
+      "a clock",
+      "a set of dominoes",
+      "a coin",
+      "an hourglass",
+      "a mahjong set"
+    ]
+  },
+  "description": "If you design a game from this, I'd love to hear about it.",
+  "link": "mailto:finn@finn.fun"
+}
