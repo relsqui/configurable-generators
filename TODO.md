@@ -4,6 +4,8 @@
 - fix reordering generators on rename
 - implement reordering generators on purpose
 - timestamp cached configs and expire them with inactivity -- and/or replace w/same title?
+- add content version field to the editor
+  - first figure out why it doesn't seem to be working in the upload??
 - prevent re-randomizing to the same item
 - customize colors (in the config maybe?)
 - pins for individual random items
