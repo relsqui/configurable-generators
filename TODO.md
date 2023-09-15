@@ -14,3 +14,4 @@
 - tidy css (rearrange into more sensible groups)
   - make an IconButton component to centralize a bunch of logic
 - split up editor into smaller components
+- set up PWA machinery so it's even easier to use offline
