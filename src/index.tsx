@@ -8,6 +8,12 @@ import Editor, { loader as editorLoader } from './routes/Editor';
 import { GeneratorLayout, loader as generatorLoader } from './routes/Generator';
 import './index.css';
 
+// https://github.com/dequelabs/axe-core-npm/blob/develop/packages/react/README.md
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
