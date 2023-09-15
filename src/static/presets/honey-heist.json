@@ -3,24 +3,26 @@
   "schemaVersion": "0.1.0",
   "generators": {
     "The Team": [
-      "We've assembled a crack team:",
-      "The Muscle is <descriptor> <bear> wearing <hat>.",
-      "The Brains is <descriptor> <bear> wearing <hat>.",
-      "The Driver is <descriptor> <bear> wearing <hat>.",
-      "The Hacker is <descriptor> <bear> wearing <hat>.",
-      "The Thief is <descriptor> <bear> wearing <hat>.",
-      "The Face is <descriptor> <bear> wearing <hat>."
+      "You're the <role>: <descriptor> <bear> wearing <hat>."
     ],
     "HoneyCon": [
       "HoneyCon 2017 is being held in a <location-type> <location>. You've heard the organizer is <organizer>.",
       "They've employed <security> and <security> to secure <prize>.",
       "But little do the bears know ... <twist>!"
     ],
-    "d6": [
-      "<d6>"
+    "Roll": [
+      "You got a <d6>."
     ]
   },
   "tables": {
+    "role": [
+      "muscle",
+      "brains",
+      "driver",
+      "hacker",
+      "thief",
+      "face"
+    ],
     "descriptor": [
       "a rookie",
       "a washed-up",
@@ -30,12 +32,12 @@
       "an incompetent"
     ],
     "bear": [
-      "and terrifying grizzly",
-      "polar bear, who can swim,",
-      "panda, who eats anything that looks like bamboo,",
-      "black bear, who can climb,",
-      "sun bear, who senses honey,",
-      "honey badger, who causes carnage,"
+      "grizzly",
+      "polar bear",
+      "panda",
+      "black bear",
+      "sun bear",
+      "honey badger"
     ],
     "hat": [
       "a trilby",
@@ -47,18 +49,6 @@
       "a crown",
       "no hat",
       "a hat on each ear"
-    ],
-    "digit": [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9"
     ],
     "location-type": [
       "creepy",
@@ -109,12 +99,12 @@
       "the bees are angry"
     ],
     "d6": [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6"
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six"
     ]
   },
   "description": "Honey Heist is by Grant Howitt. Get it here:",
