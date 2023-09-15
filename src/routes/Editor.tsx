@@ -56,7 +56,7 @@ export async function loader() {
 
 function EditorHeader({ saveConfig, resetConfig }: { saveConfig: () => void, resetConfig: () => void }) {
   const navigate = useNavigate();
-  return <nav><ul className='navigation'>
+  return <nav aria-label="Main navigation"><ul className='navigation'>
     <li className="pushRight">
       <button className="icon" onClick={saveConfig}>
         <DownloadIcon className="icon" title="Download config" />
@@ -68,7 +68,7 @@ function EditorHeader({ saveConfig, resetConfig }: { saveConfig: () => void, res
 }
 
 function PreviewHeader({ generators, selectedGenerator }: { generators: string[], selectedGenerator: string }) {
-  return <nav><ul className='navigation'>
+  return <nav aria-label="Generator preview navigation"><ul className='navigation'>
     {generators.map((g) => <GeneratorButton key={g} generator={g} selected={g === selectedGenerator} />)}
   </ul></nav>;
 
@@ -172,7 +172,8 @@ export default function Editor() {
 
   return <>
     <EditorHeader saveConfig={saveConfig} resetConfig={resetConfig} />
-    <div className="editorContent flexRow">
+    <main className="editorContent flexRow">
+      <h1 className='invisible'>Editor</h1>
       <div className="flexRow editorMetadata">
         <input className="editorItem" placeholder='Config Title' value={config.title} onChange={(e) => updateConfig({ title: e.target.value })} />
         <input className="editorItem editorDescription" placeholder='Made by ... or intended for .... (optional)' value={config.description || ''} onChange={(e) => updateConfig({ description: e.target.value })} />
@@ -180,14 +181,14 @@ export default function Editor() {
       </div>
       <div className="editorGenerator">
         <div className="flexRow">
-          <select className="editorItem editorSelect" value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
+          <select aria-label="Select a generator tab" className="editorItem editorSelect" value={generator} onChange={e => navigate(`#${titleToSlug(e.target.value)}`)}>
             {Object.keys(config.generators).map(generator => <option key={generator} value={generator}>{generator}</option>)}
           </select>
           <button className="icon" onClick={addGenerator}><AddIcon className="icon" title="Add a generator tab" /></button>
           {Object.keys(config.generators).length > 1 ? <button className="icon" onClick={deleteGenerator}><ClearIcon className="icon" title={`Delete '${generator}'`} /></button> : ''}
-          <input className="editorItem editorRenameInput" name="generatorName" value={generator} onChange={renameGenerator} />
+          <input aria-label={`Rename '${generator}' tab`} className="editorItem editorRenameInput" name="generatorName" value={generator} onChange={renameGenerator} />
         </div>
-        <textarea className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
+        <textarea aria-label={`'${generator}' tab content`} className="editorItem minTextareaHeight" onChange={updateEditPane} value={editPaneContent} />
         <div className="editorPreview">
           <PreviewHeader generators={Object.keys(config.generators)} selectedGenerator={generator} />
           <Generator config={config} generator={generator} />
@@ -195,18 +196,18 @@ export default function Editor() {
       </div>
       <div className="editorTable">
         <div className="flexRow">
-          <select className="editorItem editorSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
+          <select aria-label="Select a table" className="editorItem editorSelect" value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
             {Object.keys(config.tables).map(tableName => <option key={tableName}>{tableName}</option>)}
           </select>
           <button className="icon" onClick={addTable}><AddIcon className="icon" title="Add a table" /></button>
           {Object.keys(config.tables).length > 1 ? <button className="icon" onClick={deleteTable}><ClearIcon className="icon" title={`Delete '${selectedTable}'`} /></button> : ''}
         </div>
         <div className="flexRow">
-          <input className="editorItem" name="tableName" value={selectedTable} onChange={renameTable} />
+          <input aria-label={`Rename '${selectedTable}' table`} className="editorItem" name="tableName" value={selectedTable} onChange={renameTable} />
         </div>
-        <textarea className="editorItem minTextareaHeight" value={tablePaneContent} onChange={updateTableItems}></textarea>
+        <textarea aria-label={`'${selectedTable}' table content`} className="editorItem minTextareaHeight" value={tablePaneContent} onChange={updateTableItems}></textarea>
       </div>
-    </div>
+    </main>
   </>;
 }
 

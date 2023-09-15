@@ -157,9 +157,10 @@ export function GeneratorLayout() {
 
   return <>
     <GeneratorHeader generators={Object.keys(config.generators)} selectedGenerator={generator} title={config.title} />
-    <div className="generatorContent">
+    <main className="generatorContent">
+      <h1 className="invisible">{config.title}</h1>
       <Generator config={config} generator={generator} />
-    </div>
+    </main>
     <footer>
       {config.description} {config.link ? <a href={config.link}>Link</a> : ''}
     </footer>

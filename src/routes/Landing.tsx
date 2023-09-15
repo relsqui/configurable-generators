@@ -4,9 +4,14 @@ import UploadButton from "../components/UploadButton";
 
 export default function Landing() {
   const navigate = useNavigate();
-  return <div className="landing">
-    <div><PresetDropdown label="Choose a preset: " /></div>
-    <div><UploadButton /></div>
-    <div><button onClick={() => navigate("/edit")}>Create a new config</button></div>
-  </div>;
+  return <>
+    <main className="landing">
+      <div className="landingContainer">
+        <h1 className="invisible">Configurable Generators</h1>
+        <div><PresetDropdown label="Choose a preset: " /></div>
+        <div><UploadButton /></div>
+        <div>Or <button onClick={() => navigate("/edit")}>create your own generator</button>!</div>
+      </div>
+    </main>
+  </>;
 }

@@ -21,7 +21,7 @@ export function PresetDropdown({ label, selected = '' }: { label?: string, selec
   return selected.length && !presets[selected] ? <></> :
     <>
       <label htmlFor="presetDropdown">{label}</label>
-      <select id="presetDropdown" name="presetTitle" defaultValue={selected} onChange={handleChange}>
+      <select id="presetDropdown" name="presetTitle" aria-label="Choose a preset" defaultValue={selected} onChange={handleChange}>
         <option></option>
         {Object.keys(presets).map(presetTitle => <option key={presetTitle} value={presetTitle}>{presetTitle}</option>)}
       </select>

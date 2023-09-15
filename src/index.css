@@ -13,12 +13,11 @@ code {
 }
 
 :root {
-  --dark-gray: #282c34;
-  --medium-gray: #807882;
-  --light-gray: #b8b0b8;
-  --medium-blue: #7870a2;
-  --dark-blue: #586088;
-  --medium-red: #a27070;
+  --dark-gray: #292739;
+  --medium-gray: #C7C7DA;
+  --light-gray: #E2D2E2;
+  --link-color: #8F94C3;
+  --visited-link-color: #AA8AB6;
 }
 
 body {
@@ -28,16 +27,11 @@ body {
 }
 
 a {
-  color: var(--medium-blue);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  color: var(--link-color);
 }
 
 a:visited {
-  color: var(--dark-blue);
+  color: var(--visited-link-color);
 }
 
 ul {
@@ -52,6 +46,7 @@ button,
 select,
 textarea,
 input {
+  background-color: var(--medium-gray);
   font-size: inherit;
   font-family: inherit;
   border: none;
@@ -122,6 +117,21 @@ input {
 
 footer {
   font-size: calc(15px + 0.5vmin);
+  color: var(--medium-gray);
+}
+
+/* https://a11y-guidelines.orange.com/en/articles/accessible-hiding */
+.invisible {
+  position: absolute;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .generatorContent {
@@ -152,8 +162,8 @@ footer {
   min-height: 4em;
 }
 
-randomItem {
-  background-color: var(--light-gray);
+.randomItem {
+  background-color: var(--light-gray) !important;
   color: var(--dark-gray);
   cursor: pointer;
 }
@@ -164,6 +174,17 @@ randomItem {
   flex-wrap: wrap;
   align-items: stretch;
   gap: 10px;
+}
+
+.landingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-items: distribute;
+  gap: 3em;
+  padding: 3em;
+  border: medium var(--light-gray) dashed;
+  border-radius: calc(2px + 1vmin);
 }
 
 .editorContent {

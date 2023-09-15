@@ -21,7 +21,7 @@ export default function UploadButton() {
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
   return <div className="uploadButton">
-    Drag a config file here or <button onClick={() => fileInput.current?.click()}>upload file</button>
+    Drag in a config file or <button onClick={() => fileInput.current?.click()}>upload file</button>.
     <input
       ref={fileInput}
       className="fileInput"
