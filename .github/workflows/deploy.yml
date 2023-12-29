@@ -26,4 +26,4 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ env.AWS_ROLE }}
           role-session-name: ${{ env.AWS_SESSION_NAME }}
-      - run: aws s3 sync build "s3://${AWS_S3_BUCKET}"
+      - run: aws s3 sync build "s3://${AWS_S3_BUCKET}" && aws cloudfront create-invalidation --distribution-id 'ED227UN54U5OB' --paths '/*'
