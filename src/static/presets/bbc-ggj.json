@@ -1,0 +1,98 @@
+{
+  "title": "BBC GGJ",
+  "description": "Big Bad Con '24 / Group Game Jam / Group 1",
+  "link": "",
+  "schemaVersion": "0.1.0",
+  "contentVersion": "",
+  "generators": {
+    "Scenario": [
+      "<Opponent-has> <verbed> <victims> <macguffin>.",
+      "You must travel to <an-adjective><place> <location> to resolve the issue."
+    ],
+    "Character": [
+      "<Invitation> <a-trait> <role>."
+    ]
+  },
+  "tables": {
+    "Opponent-has": [
+      "Goblins have",
+      "A dragon has",
+      "A rival party has",
+      "Ghosts have",
+      "Mercenaries have",
+      "A dark wizard has"
+    ],
+    "verbed": [
+      "stolen",
+      "cursed",
+      "sabotaged",
+      "replaced",
+      "occupied",
+      "trapped"
+    ],
+    "victims": [
+      "the mayor's",
+      "a party member's",
+      "a dragon's",
+      "their own",
+      "your favorite NPC's",
+      "their rival's"
+    ],
+    "macguffin": [
+      "underpants",
+      "weapon",
+      "fiance",
+      "house",
+      "brewery",
+      "spellbook"
+    ],
+    "an-adjective": [
+      "a dank",
+      "a fantastic",
+      "a treacherous",
+      "a whimsical",
+      "an abandoned",
+      "a haunted"
+    ],
+    "place": [
+      "swamp",
+      "cottage",
+      "mansion",
+      "village",
+      "dungeon",
+      "mineshaft"
+    ],
+    "location": [
+      "deep underground",
+      "on another plane",
+      "in a neighboring county",
+      "across the sea",
+      "on a floating island",
+      "in a magical dreamworld"
+    ],
+    "a-trait": [
+      "a dextrous",
+      "a foolhardy",
+      "a timid",
+      "an impulsive",
+      "a generous",
+      "a quick-witted"
+    ],
+    "role": [
+      "thief",
+      "wizard",
+      "barbarian",
+      "bard",
+      "druid",
+      "ranger"
+    ],
+    "Invitation": [
+      "What this party needs is",
+      "Consider playing",
+      "You should really be",
+      "The optimal choice is",
+      "It might be fun to play",
+      "Tell a story about"
+    ]
+  }
+}
