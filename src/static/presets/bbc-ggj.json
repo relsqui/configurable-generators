@@ -7,7 +7,7 @@
   "generators": {
     "Scenario": [
       "<Opponent-has> <verbed> <victims> <macguffin>.",
-      "You must travel to <an-adjective><place> <location> to resolve the issue."
+      "You must travel to <an-adjective> <place> <location> to resolve the issue."
     ],
     "Character": [
       "<Invitation> <a-trait> <role>."
