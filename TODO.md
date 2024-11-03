@@ -1,3 +1,4 @@
+- fix filling local storage with editor tempfiles
 - error handling
 - confirm before deleting config pieces or resetting config
 - implement uploading into the editor

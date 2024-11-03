@@ -5,7 +5,7 @@ import { ReactComponent as DieIcon } from '../static/icons/materialDie.svg';
 import { ReactComponent as ExitIcon } from '../static/icons/materialExit.svg';
 import { PresetDropdown } from '../components/PresetDropdown';
 import { NavButton } from '../components/NavButton';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { redirect, useLoaderData, useNavigate } from 'react-router-dom';
 import { presetsBySlug, titleToSlug } from '../presets';
 import { matchSlug } from '../matchSlug';
 
@@ -22,7 +22,10 @@ type TextTree = {
 
 export async function loader({ params }: any) {
   const config = presetsBySlug[params.slug] as TableConfig;
-  if (!config) throw Error(`Slug ${params.slug} not found.`);
+  if (!config) {
+    console.log(`Slug ${params.slug} not found.`);
+    return redirect("/");
+  }
   return { config };
 }
 
