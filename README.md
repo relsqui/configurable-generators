@@ -1,6 +1,6 @@
 # Configurable Generators
 
-This is a static site that creates random text from a set of generator templates and content tables. It doesn't save or host any generators, it only reads configuration files provided by the user. That means game makers can distribute their own config files however they want (for example, as a digital supplement to paper-and-dice data tables). It also means the app works completely offline.
+This is a static site that creates random text from a set of generator templates and content tables. It includes a few preconfigured example generators, but is mostly intended to read configuration files provided by the user. That means game makers can distribute their own config files however they want (for example, as a digital supplement to paper-and-dice data tables). It also means the app works completely offline.
 
 ## Usage
 
