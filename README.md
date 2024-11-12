@@ -101,6 +101,7 @@ If you're setting up a custom domain, create a CNAME record that points to the s
   * `AWS_REGION` probably doesn't matter but feel free to set it somewhere closer to you
   * `AWS_SESSION_NAME` can change but doesn't need to, it's there to make AWS logs easier to understand
   * if you're using OIDC, remove the two lines that reference secret credentials
+  * either remove the `&& aws cloudfront` part (the rest of the line starting there) or actually make a cloudfront distribution and update the ID instead
 
 To test it out, go to the Actions tab of the repo, select "Build and deploy" from the list, and "Run workflow." If everything's set up right, in about a minute all the jobs will turn green and your site will be reachable at the S3 static site URL (and your custom domain if you set that up). If not, read the error messages in the log for ideas, and feel free to make an issue if there's a problem with these instructions.
 
